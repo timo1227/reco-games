@@ -15,6 +15,8 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/Login",
   },
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: true,
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -56,35 +58,4 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  callbacks: {
-    async session({ token, session }) {
-      if (token) {
-        // session.user!.id = token.id
-        session.user!.name = token.name;
-        session.user!.email = token.email;
-        session.user!.image = token.picture;
-      }
-
-      return session;
-    },
-    async jwt({ token, user }) {
-      await dbConnect();
-
-      const dbUser = await User.findOne({ email: user.email });
-
-      if (!dbUser) {
-        if (user) {
-          token.id = user?.id;
-        }
-        return token;
-      }
-
-      return {
-        id: dbUser._id,
-        name: dbUser.username,
-        email: dbUser.email,
-        image: dbUser.image,
-      };
-    },
-  },
 };
