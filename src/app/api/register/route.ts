@@ -1,4 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
+import Games from "@/models/Games";
 import User from "@/models/Users";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
@@ -45,11 +46,22 @@ export async function POST(req: Request) {
     // hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
+    // Create new Games on MongoDB
+    const newGames = new Games({
+      games: [],
+    });
+
+    // Save games to database
+    await newGames.save().catch((err: Error) => {
+      console.log("Error on save: ", err);
+    });
+
     // create new User on MongoDB
     const newUser = new User({
       username,
       email,
       hashedPassword,
+      games: newGames._id,
     });
 
     // Save user to database

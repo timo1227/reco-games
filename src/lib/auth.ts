@@ -58,4 +58,35 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async session({ token, session }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.games = token.games;
+      }
+
+      return session;
+    },
+    async jwt({ token, user }) {
+      await dbConnect();
+
+      const dbUser = await User.findOne({ email: user?.email });
+
+      if (!dbUser) {
+        if (user) {
+          token.id = user?.id;
+        }
+        return token;
+      }
+
+      return {
+        id: dbUser?._id,
+        name: dbUser?.username,
+        email: dbUser?.email,
+        games: dbUser?.games,
+      };
+    },
+  },
 };
