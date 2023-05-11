@@ -1,20 +1,29 @@
 import SearchBar from "@/components/SearchBar/SearchBar";
 
-import { Games } from "Games";
+import { GamesType } from "Games";
 
 interface Props {
-  gamesList: Games;
+  gamesList: GamesType;
+  gameID: string;
   steamGames: {
     appid: number;
     name: string;
   }[];
 }
 
-export default function SetUserGamesList({ gamesList, steamGames }: Props) {
+export default function SetUserGamesList({
+  gamesList,
+  steamGames,
+  gameID,
+}: Props) {
   return (
     <>
       <h1>Add your Games Below</h1>
-      <SearchBar gamesList={gamesList} steamGames={steamGames} />
+      <SearchBar
+        gameID={gameID}
+        gamesList={gamesList}
+        steamGames={steamGames}
+      />
     </>
   );
 }

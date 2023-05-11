@@ -1,24 +1,23 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Games } from "Games";
+import { GamesType } from "Games";
 
 interface SearchBarProps {
   steamGames: {
     appid: number;
     name: string;
   }[];
-
+  gameID: string;
   gamesList: any[];
 }
 
-interface SelectedGames {
-  appid: number;
-  name: string;
-}
-
-export default function SearchBar({ steamGames, gamesList }: SearchBarProps) {
+export default function SearchBar({
+  steamGames,
+  gamesList,
+  gameID,
+}: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedGames, setSelectedGames] = useState<SelectedGames[]>([]);
+  const [selectedGames, setSelectedGames] = useState<GamesType>([]);
 
   const filteredGames =
     searchTerm.length >= 3
@@ -31,12 +30,32 @@ export default function SearchBar({ steamGames, gamesList }: SearchBarProps) {
     setSearchTerm(event.target.value);
   };
 
-  const handleSubmitButton = () => {
+  const handleSubmitButton = async () => {
     gamesList.push(...selectedGames);
+    const res = await fetch(`/api/games/${gameID}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        games: gamesList,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Something went wrong!");
+    }
+
     setSelectedGames([]);
     setSearchTerm("");
-    console.log(gamesList);
   };
+
+  useEffect(() => {
+    // Log the selected games
+    console.log(selectedGames);
+  }, [selectedGames]);
 
   return (
     <div
@@ -97,7 +116,11 @@ export default function SearchBar({ steamGames, gamesList }: SearchBarProps) {
             ? filteredGames.map((game) => (
                 <div
                   key={game.appid}
-                  className="py-2 px-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-black/10"
+                  className={
+                    gamesList.includes(game) || selectedGames.includes(game)
+                      ? "hidden"
+                      : "py-2 px-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-black/10"
+                  }
                   role="option"
                   id=":rah:"
                   aria-selected="false"

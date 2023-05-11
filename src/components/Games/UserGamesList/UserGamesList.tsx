@@ -1,15 +1,14 @@
-import { Games } from "Games";
+import { GamesType } from "Games";
+import GameCard from "../GameCard/GameCard";
 
-export default function UserGamesList({ gamesList }: { gamesList: Games }) {
+export default function UserGamesList({ gamesList }: { gamesList: GamesType }) {
   return (
     <div>
-      <h2>Games List</h2>
+      <h2>Games</h2>
       <ul>
-        {gamesList.map((game: any) => (
-          <li key={game.appid}>
-            <h3>{game.name}</h3>
-            <p>{game.appid}</p>
-          </li>
+        {gamesList.map((game) => (
+          //@ts-ignore
+          <GameCard key={game.appid} game={game} />
         ))}
       </ul>
     </div>
