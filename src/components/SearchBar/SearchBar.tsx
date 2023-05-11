@@ -52,10 +52,10 @@ export default function SearchBar({
     setSearchTerm("");
   };
 
-  useEffect(() => {
-    // Log the selected games
-    console.log(selectedGames);
-  }, [selectedGames]);
+  // useEffect(() => {
+  //   // Log the selected games
+  //   console.log(selectedGames);
+  // }, [selectedGames]);
 
   return (
     <div

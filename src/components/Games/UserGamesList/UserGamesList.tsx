@@ -1,10 +1,24 @@
 import { GamesType } from "Games";
 import GameCard from "../GameCard/GameCard";
+import GameCardHeader from "../GameCard/GameCardHeader";
 
-export default function UserGamesList({ gamesList }: { gamesList: GamesType }) {
+interface UserGamesListProps {
+  gamesList: GamesType;
+  gameID: string;
+  steamGames: {
+    appid: number;
+    name: string;
+  }[];
+}
+
+export default function UserGamesList({
+  gamesList,
+  gameID,
+  steamGames,
+}: UserGamesListProps) {
   return (
-    <div>
-      <h2>Games</h2>
+    <div className="border border-red-500 py-5">
+      <GameCardHeader />
       <ul>
         {gamesList.map((game) => (
           //@ts-ignore

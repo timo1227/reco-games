@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
     signIn: "/Login",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: true,
+  // debug: true,
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")

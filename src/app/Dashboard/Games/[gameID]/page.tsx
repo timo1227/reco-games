@@ -3,6 +3,7 @@ import UserGamesList from "@/components/Games/UserGamesList/UserGamesList";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { GamesType } from "Games";
+import SearchBar from "@/components/SearchBar/SearchBar";
 
 async function getSteamGames() {
   const res = await fetch(
@@ -62,13 +63,22 @@ export default async function Page({
       />
     );
   } else {
-    dashboardPage = <UserGamesList gamesList={userGamesList} />;
+    const steamGames = await getSteamGames();
+    dashboardPage = (
+      <UserGamesList
+        gameID={gameID}
+        steamGames={steamGames}
+        gamesList={userGamesList}
+      />
+    );
   }
 
   return (
-    <main>
-      <h1>{session?.user.name}&apos;s DashBoard</h1>
-      {dashboardPage}
+    <main className="h-full">
+      <h1 className="font-bold text-3xl text-center">
+        {session?.user.name}&apos;s DashBoard
+      </h1>
+      <div className="">{dashboardPage}</div>
     </main>
   );
 }
