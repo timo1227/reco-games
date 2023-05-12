@@ -1,11 +1,68 @@
-interface AuthLayoutProps {
+import SideBar from "@/components/Bars/SideBar/Sidebar";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { GamesType } from "Games";
+
+interface LayoutProps {
   children: React.ReactNode;
 }
 export const metadata = {
   title: "Dashboard",
-  description: "Get Game Recommendations ",
+  description: "Dashboard for the app ",
 };
 
-export default function AuthLayout({ children }: AuthLayoutProps) {
-  return <div className="h-full pt-24 px-5">{children}</div>;
+async function getSteamGames() {
+  const res = await fetch(
+    "https://api.steampowered.com/ISteamApps/GetAppList/v2/",
+    {
+      cache: "no-store",
+    }
+  );
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Something went wrong!");
+  }
+
+  return data.applist.apps;
+}
+
+async function getUserGames({ gameID }: { gameID: string }) {
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  const res = await fetch(`${url}/api/games/${gameID}`, {
+    cache: "no-store",
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Something went wrong!");
+  }
+
+  return data.games;
+}
+
+export default async function Layout({ children }: LayoutProps) {
+  const session = await getServerSession(authOptions);
+
+  const gameID = session?.user.games;
+
+  const userGamesList: GamesType = await getUserGames({ gameID });
+  const steamGames = await getSteamGames();
+
+  return (
+    <div className="mx-auto flex flex-row h-full max-w-7xl pt-24">
+      <SideBar
+        gameID={gameID}
+        steamGames={steamGames}
+        gamesList={userGamesList}
+      />
+      {children}
+    </div>
+  );
 }
