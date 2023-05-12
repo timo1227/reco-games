@@ -5,6 +5,13 @@ const GameSchema = new mongoose.Schema({
     {
       appid: Number,
       name: String,
+      // suggestedGames: [
+      //   {
+      //     name: String,
+      //     description: String,
+      //     reason: String,
+      //   },
+      // ],
       // categories: [
       //   {
       //     id: { type: Number, required: true, unique: true },
