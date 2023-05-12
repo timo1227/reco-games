@@ -10,7 +10,10 @@ export default withAuth(
 
     if (isAuthPage) {
       if (isAuth) {
-        return NextResponse.redirect(new URL("/Games", req.url));
+        const gameID = token.games;
+        return NextResponse.redirect(
+          new URL(`/Dashboard/Games/${gameID}`, req.url)
+        );
       }
 
       return null;
@@ -40,5 +43,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/Games/:path*", "/editor/:path*", "/Login"],
+  matcher: ["/Dashboard/:path*", "/editor/:path*", "/Login"],
 };

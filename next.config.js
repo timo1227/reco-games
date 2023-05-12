@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    serverActions: true,
     serverComponentsExternalPackages: ["mongoose"],
   },
   webpack: (config) => {
@@ -9,6 +10,14 @@ const nextConfig = {
     // this will just update topLevelAwait property of config.experiments
     // config.experiments.topLevelAwait = true
     return config;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.*.*",
+      },
+    ],
   },
 };
 

@@ -2,7 +2,7 @@ import { User } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
 type UserId = string;
-type GameId = string;
+type GameId = ObjectId;
 
 declare module "next-auth/jwt" {
   interface JWT {

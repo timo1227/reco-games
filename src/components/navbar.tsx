@@ -11,7 +11,7 @@ import { SunIcon, MoonIcon } from "@heroicons/react/20/solid";
 
 const NAVIGATION = [
   { name: "Home", href: "/" },
-  { name: "Games", href: "/Games" },
+  { name: "Games", href: "/Dashboard/Games/" },
   { name: "Features", href: "#Features" },
   { name: "About", href: "#About" },
 ];
@@ -53,17 +53,16 @@ export default function Nav() {
 
   function SessionLink() {
     if (session) {
-      console.log(session);
       if (mobileMenuOpen) {
         return (
           <>
-            <Link
+            {/* <Link
               href="/Profile"
               className="block px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100"
               role="menuitem"
             >
               Your Profile
-            </Link>
+            </Link> */}
             <Link
               href="/Login"
               className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
@@ -91,21 +90,21 @@ export default function Nav() {
             <div
               className={`${
                 profileMenuOpen ? "block" : "hidden"
-              } origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}
+              } origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none`}
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="options-menu"
             >
-              <Link
+              {/* <Link
                 href="/Profile"
-                className="block px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100"
+                className="block px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 "
                 role="menuitem"
               >
                 Your Profile
-              </Link>
+              </Link> */}
               <Link
                 href="/Login"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white"
                 role="menuitem"
                 onClick={() => signOut()}
               >
@@ -176,7 +175,11 @@ export default function Nav() {
           {NAVIGATION.map((item) => (
             <Link
               key={item.name}
-              href={item.href}
+              href={
+                item.name === "Games"
+                  ? `${item.href}/${session?.user.games}`
+                  : `${item.href}`
+              }
               className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
             >
               {item.name}
@@ -195,7 +198,7 @@ export default function Nav() {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-50" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto px-6 py-6 sm:max-w-sm sm:ring-1 bg-white dark:bg-slate-800 sm:ring-gray-900/10 dark:sm:ring-gray-400/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto px-6 py-6 sm:max-w-sm sm:ring-1 bg-white dark:bg-[#181818] sm:ring-gray-900/10 dark:sm:ring-gray-400/10">
           <div className="flex items-center justify-between">
             <Link href="#" className="">
               <span className="sr-only">Logo</span>
@@ -222,7 +225,11 @@ export default function Nav() {
                 {NAVIGATION.map((item) => (
                   <Link
                     key={item.name}
-                    href={item.href}
+                    href={
+                      item.name === "Games"
+                        ? `${item.href}/${session?.user.games}`
+                        : `${item.href}`
+                    }
                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-700"
                   >
                     {item.name}
