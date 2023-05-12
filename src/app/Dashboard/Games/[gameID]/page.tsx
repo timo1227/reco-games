@@ -3,7 +3,6 @@ import UserGamesList from "@/components/Games/UserGamesList/UserGamesList";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { GamesType } from "Games";
-import SearchBar from "@/components/SearchBar/SearchBar";
 
 async function getSteamGames() {
   const res = await fetch(
