@@ -74,11 +74,11 @@ export default async function Page({
   }
 
   return (
-    <main className="h-full">
+    <div className="dashboard-container h-full">
       <h1 className="font-bold text-3xl text-center">
-        {session?.user.name}&apos;s DashBoard
+        {session?.user.name}&apos;s Game Dashboard
       </h1>
-      <div className="">{dashboardPage}</div>
-    </main>
+      {dashboardPage}
+    </div>
   );
 }

@@ -17,14 +17,18 @@ export default function UserGamesList({
   steamGames,
 }: UserGamesListProps) {
   return (
-    <div className="border border-red-500 py-5">
-      <GameCardHeader />
-      <ul>
+    <div className="dashboard-inner mt-5">
+      <GameCardHeader
+        gamesList={gamesList}
+        gameID={gameID}
+        steamGames={steamGames}
+      />
+      <div className="game-cards pt-10 flex flex-col md:flex-wrap sm:flex-row justify-center items-center sm:items-stretch md:justify-between">
         {gamesList.map((game) => (
           //@ts-ignore
           <GameCard key={game.appid} game={game} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

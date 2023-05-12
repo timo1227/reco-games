@@ -56,13 +56,13 @@ export default function Nav() {
       if (mobileMenuOpen) {
         return (
           <>
-            <Link
+            {/* <Link
               href="/Profile"
               className="block px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100"
               role="menuitem"
             >
               Your Profile
-            </Link>
+            </Link> */}
             <Link
               href="/Login"
               className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
@@ -95,13 +95,13 @@ export default function Nav() {
               aria-orientation="vertical"
               aria-labelledby="options-menu"
             >
-              <Link
+              {/* <Link
                 href="/Profile"
                 className="block px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 "
                 role="menuitem"
               >
                 Your Profile
-              </Link>
+              </Link> */}
               <Link
                 href="/Login"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white"
@@ -198,7 +198,7 @@ export default function Nav() {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-50" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto px-6 py-6 sm:max-w-sm sm:ring-1 bg-white dark:bg-slate-800 sm:ring-gray-900/10 dark:sm:ring-gray-400/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto px-6 py-6 sm:max-w-sm sm:ring-1 bg-white dark:bg-[#181818] sm:ring-gray-900/10 dark:sm:ring-gray-400/10">
           <div className="flex items-center justify-between">
             <Link href="#" className="">
               <span className="sr-only">Logo</span>
