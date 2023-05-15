@@ -1,6 +1,6 @@
+import { getCurrentUser } from "@/lib/session";
 import SideBar from "@/components/Bars/SideBar/Sidebar";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
+import { notFound } from "next/navigation";
 import { GamesType } from "Games";
 
 interface LayoutProps {
@@ -48,11 +48,14 @@ async function getUserGames({ gameID }: { gameID: string }) {
 }
 
 export default async function Layout({ children }: LayoutProps) {
-  const session = await getServerSession(authOptions);
+  const user = await getCurrentUser();
 
-  const gameID = session?.user.games;
+  if(!user) return notFound();
+
+  const gameID = user.games;
 
   const userGamesList: GamesType = await getUserGames({ gameID });
+
   const steamGames = await getSteamGames();
 
   return (
