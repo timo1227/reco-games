@@ -1,10 +1,16 @@
-declare module "Games" {
-  export type GamesType = {
-    appid: number;
-    name: string;
-    // categories: {
-    //   id: number;
-    //   description: string;
-    // }[];
-  }[];
+export interface GamesType {
+  appid: Number
+  name: String
+  // categories: {
+  //   id: number;
+  //   description: string;
+  // }[];
+}
+
+export interface SuggestionGames {
+  games: {
+    description: string
+    name: string
+    reason: string
+  }[]
 }

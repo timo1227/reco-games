@@ -1,33 +1,12 @@
 import { useState } from 'react'
 
-import SuggestionsButton from './SuggestionButton'
+import { SuggestionGames } from '@/types/Games'
 
-interface SuggestionGames {
-  games: {
-    description: string
-    name: string
-    reason: string
-  }[]
-}
+import SuggestionsButton from './SuggestionButton'
 
 export default function SuggestionSection({ gameID }: { gameID: string }) {
   const [suggestions, setSuggestions] = useState<SuggestionGames['games']>([])
-
-  // useEffect(() => {
-  //   const getSuggestedGames = async () => {
-  //     const res = await fetch("/api/SuggestedGames", {
-  //       method: "POST",
-  //       body: JSON.stringify({
-  //         gameID,
-  //       }),
-  //     });
-  //     const data = await res.json();
-  //     if (res.ok) {
-  //       setGames(data.games);
-  //     }
-  //   };
-  //   getSuggestedGames();
-  // }, []);
+  const [isLoading, setIsLoading] = useState(false)
 
   return (
     <div className='dashboard-inner h-full w-full overflow-y-scroll px-5 scrollbar-hide'>
@@ -35,6 +14,8 @@ export default function SuggestionSection({ gameID }: { gameID: string }) {
       <div className='flex justify-end'>
         <SuggestionsButton
           gameID={gameID}
+          isLoading={isLoading}
+          setLoading={(isLoading) => setIsLoading(isLoading)}
           setSuggestions={(suggestions) => setSuggestions(suggestions)}
         />
       </div>
@@ -46,14 +27,16 @@ export default function SuggestionSection({ gameID }: { gameID: string }) {
         )}
         <ol className='list-decimal'>
           {suggestions.map((game) => (
-            <li key={game.name} className='mb-5 flex flex-col items-center'>
-              <h2 className='mb-5 text-4xl font-bold'>{game.name}</h2>
-              <caption className='mb-3 flex flex-wrap text-left'>
+            <li key={game.name} className='mb-5 flex flex-col'>
+              <h2 className='mb-5 text-center text-4xl font-bold'>
+                {game.name}
+              </h2>
+              <div className='mb-3 flex flex-wrap text-left'>
                 <p className='font-bold'>Description: </p> {game.description}
-              </caption>
-              <p>
+              </div>
+              <div>
                 <p className='font-bold'>Why to play? : </p> {game.reason}
-              </p>
+              </div>
             </li>
           ))}
         </ol>

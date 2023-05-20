@@ -1,30 +1,41 @@
-import { useState } from 'react'
+import SuggestionService from '@/class/SuggestionService'
+import { CanceledError } from 'axios'
+
+import { SuggestionGames } from '@/types/Games'
+import useGameContext from '@/hooks/useGameContext'
 
 interface Props {
   gameID: string
-  setSuggestions: (suggestions) => void
+  isLoading: boolean
+  setLoading: (isLoading: boolean) => void
+  setSuggestions: (suggestions: SuggestionGames['games']) => void
 }
 
-export default function SuggestionsButton({ gameID, setSuggestions }: Props) {
-  const [isLoading, setIsLoading] = useState(false)
+export default function SuggestionsButton({
+  gameID,
+  setSuggestions,
+  isLoading,
+  setLoading,
+}: Props) {
+  const { games } = useGameContext()
 
   const handleSuggestionsClick = () => {
-    const getSuggestions = async () => {
-      if (isLoading) return
-      setIsLoading(true)
-      const res = await fetch('/api/openAi', {
-        method: 'POST',
-        body: JSON.stringify({
-          gameID,
-        }),
+    setLoading(true)
+
+    const { req, cancel } = SuggestionService.getSuggestions(games)
+    req
+      .then((res) => {
+        setSuggestions(res.data.games)
+        setLoading(false)
       })
-      const data = await res.json()
-      setIsLoading(false)
-      if (res.ok) {
-        setSuggestions(data.games)
-      }
-    }
-    getSuggestions()
+      .catch((err) => {
+        if (err instanceof CanceledError) {
+          console.log('Request canceled', err.message)
+          setLoading(false)
+        }
+      })
+
+    return () => cancel
   }
 
   return (

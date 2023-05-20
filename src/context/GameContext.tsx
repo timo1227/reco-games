@@ -1,15 +1,16 @@
 import { createContext, useEffect, useState } from 'react'
-import { GamesType } from 'Games'
 import axios from 'axios'
 
+import { GamesType } from '@/types/Games'
+
 interface GameContextType {
-  games: GamesType
+  games: GamesType[]
   setGames: React.Dispatch<React.SetStateAction<any>>
 }
 
 interface UserGameCollection {
   _id: string
-  games: GamesType
+  games: GamesType[]
 }
 
 export const GameContext = createContext<GameContextType>(null!)
