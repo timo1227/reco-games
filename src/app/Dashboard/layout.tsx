@@ -1,9 +1,8 @@
 import { notFound } from 'next/navigation'
+import GamesProvider from '@/providers/GamesProvider'
 
 import { getCurrentUser } from '@/lib/session'
 import SideBar from '@/components/Bars/SideBar/Sidebar'
-
-import GamesProvider from './GamesProvider'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -39,7 +38,6 @@ export default async function Layout({ children }: LayoutProps) {
   return (
     <GamesProvider gamesID={user.games}>
       <div className='mx-auto flex h-full max-w-7xl flex-row pt-24'>
-        {/* @ts-expect-error Server Component */}
         <SideBar gameID={user.games} steamGames={steamGames} />
         {children}
       </div>

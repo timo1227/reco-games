@@ -9,7 +9,7 @@ interface SideBarProps {
   }[]
 }
 
-export default async function SideBar({ gameID, steamGames }: SideBarProps) {
+export default function SideBar({ gameID, steamGames }: SideBarProps) {
   return (
     <div className='sticky left-0 h-full w-[25rem] bg-white dark:bg-black'>
       <Header gameID={gameID} steamGames={steamGames} />

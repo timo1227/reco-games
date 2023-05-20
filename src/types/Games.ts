@@ -1,6 +1,6 @@
 export interface GamesType {
-  appid: Number
-  name: String
+  appid: number
+  name: string
   // categories: {
   //   id: number;
   //   description: string;

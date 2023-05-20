@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+import { GamesType } from '@/types/Games'
+
 // async function getAppDeatails(appid: string) {
 //   const url = `https://store.steampowered.com/api/appdetails?appids=${appid}`
 //   const res = await fetch(url, {
@@ -14,10 +16,7 @@ import Image from 'next/image'
 // }
 
 interface Props {
-  game: {
-    appid: number
-    name: string
-  }
+  game: GamesType
 }
 
 export default function GameCard({ game }: Props) {
