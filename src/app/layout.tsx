@@ -17,10 +17,6 @@ export const metadata = {
     },
   ],
   creator: 'Tim',
-  themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: 'white' },
-    { media: '(prefers-color-scheme: light)', color: 'black' },
-  ],
 }
 
 export default function RootLayout({
@@ -30,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className='h-full' suppressHydrationWarning>
-      <body className={cn(`h-full dark:bg-black`, fontInter)}>
+      <body className={cn(`h-full dark:bg-black dark:text-white`, fontInter)}>
         <Provider>
           <Nav />
           {children}
