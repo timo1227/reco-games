@@ -1,8 +1,6 @@
-import Games from '@/models/Games'
-import { GamesType } from 'Games'
 import { Configuration, OpenAIApi } from 'openai'
 
-import db from '@/lib/dbConnect'
+import { Games } from '@/types/Games'
 
 const openAi = new OpenAIApi(
   new Configuration({ apiKey: process.env.OPENAI_API_KEY })
@@ -26,7 +24,7 @@ export async function POST(req: Request) {
     const { games } = await req.json()
 
     let prompt = 'What are 2 Game titles that you can recommend if I played, '
-    games.forEach((game: any) => {
+    games.forEach((game: Games) => {
       prompt += `${game.name}, `
     })
     prompt +=
