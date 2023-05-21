@@ -3,17 +3,15 @@
 import { useEffect, useState } from 'react'
 import { BiSearchAlt2 } from 'react-icons/bi'
 
+import { Games } from '@/types/Games'
 import SearchBar from '@/components/SearchBar/SearchBar'
 
 interface GameCardHeaderProps {
   gameID: string
-  steamGames: {
-    appid: number
-    name: string
-  }[]
+  GamesList: Games[]
 }
 
-export default function Header({ gameID, steamGames }: GameCardHeaderProps) {
+export default function Header({ gameID, GamesList }: GameCardHeaderProps) {
   const [toggleSearchBar, setToggleSearchBar] = useState(false)
 
   useEffect(() => {
@@ -53,7 +51,7 @@ export default function Header({ gameID, steamGames }: GameCardHeaderProps) {
       <h3 className='mt-5 px-3'>Dashboard</h3>
       {toggleSearchBar && (
         <div className='z-55 fixed left-0 top-0 h-full w-full bg-[#fffffff1] dark:bg-[#181818f1]'>
-          <SearchBar steamGames={steamGames} gameID={gameID} />
+          <SearchBar GamesList={GamesList} gameID={gameID} />
         </div>
       )}
     </>

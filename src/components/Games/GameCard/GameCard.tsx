@@ -1,9 +1,9 @@
 import Image from 'next/image'
 
-import { GamesType } from '@/types/Games'
+import { Games } from '@/types/Games'
 
 interface Props {
-  game: GamesType
+  game: Games
 }
 
 export default function GameCard({ game }: Props) {

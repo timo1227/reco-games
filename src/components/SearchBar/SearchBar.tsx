@@ -1,22 +1,19 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { GamesType } from 'Games'
 import axios from 'axios'
 
+import { Games } from '@/types/Games'
 import useGameContext from '@/hooks/useGameContext'
 
 interface SearchBarProps {
-  steamGames: {
-    appid: number
-    name: string
-  }[]
+  GamesList: Games[]
   gameID: string
 }
 
-export default function SearchBar({ steamGames, gameID }: SearchBarProps) {
+export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedGames, setSelectedGames] = useState<GamesType>([])
+  const [selectedGames, setSelectedGames] = useState<Games[]>([])
   const [isMobile, setIsMobile] = useState(false)
   const { games, setGames } = useGameContext()
 
@@ -37,7 +34,7 @@ export default function SearchBar({ steamGames, gameID }: SearchBarProps) {
 
   const filteredGames =
     searchTerm.length >= 3
-      ? steamGames.filter((game) =>
+      ? GamesList.filter((game) =>
           game.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
       : []
@@ -133,10 +130,10 @@ export default function SearchBar({ steamGames, gameID }: SearchBarProps) {
             {filteredGames.length > 0
               ? filteredGames.map((game) => (
                   <div
-                    key={game.appid}
+                    key={game.id}
                     className={
                       selectedGames.includes(game) ||
-                      games.some((g) => g.appid === game.appid)
+                      games.some((g) => g.id === game.id)
                         ? 'hidden'
                         : 'cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-black/10'
                     }
@@ -155,7 +152,7 @@ export default function SearchBar({ steamGames, gameID }: SearchBarProps) {
                           <div className='text-sm font-medium text-gray-900 dark:text-white'>
                             <span className='truncate'>{game.name}</span>
                             <p className='text-xs text-gray-500 dark:text-gray-400'>
-                              {game.appid}
+                              {game.id}
                             </p>
                           </div>
                         </div>
@@ -232,10 +229,10 @@ export default function SearchBar({ steamGames, gameID }: SearchBarProps) {
           {filteredGames.length > 0
             ? filteredGames.map((game) => (
                 <div
-                  key={game.appid}
+                  key={game.id}
                   className={
                     selectedGames.includes(game) ||
-                    games.some((g) => g.appid === game.appid)
+                    games.some((g) => g.id === game.id)
                       ? 'hidden'
                       : 'cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-black/10'
                   }
@@ -254,7 +251,7 @@ export default function SearchBar({ steamGames, gameID }: SearchBarProps) {
                         <div className='text-sm font-medium text-gray-900 dark:text-white'>
                           <span className='truncate'>{game.name}</span>
                           <p className='text-xs text-gray-500 dark:text-gray-400'>
-                            {game.appid}
+                            {game.id}
                           </p>
                         </div>
                       </div>

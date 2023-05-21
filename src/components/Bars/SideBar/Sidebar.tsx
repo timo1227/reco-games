@@ -1,18 +1,17 @@
+import { Games } from '@/types/Games'
+
 import Header from './components/Header'
 import SideBarLink from './components/Link'
 
 interface SideBarProps {
   gameID: string
-  steamGames: {
-    appid: number
-    name: string
-  }[]
+  GamesList: Games[]
 }
 
-export default function SideBar({ gameID, steamGames }: SideBarProps) {
+export default function SideBar({ gameID, GamesList }: SideBarProps) {
   return (
     <div className='sticky left-0 h-full w-[25rem] bg-white dark:bg-black'>
-      <Header gameID={gameID} steamGames={steamGames} />
+      <Header gameID={gameID} GamesList={GamesList} />
 
       <div className='mt-10'>
         <SideBarLink href='/' name='Profile' />
