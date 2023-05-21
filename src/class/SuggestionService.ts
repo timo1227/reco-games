@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-import { GamesType, SuggestionGames } from '@/types/Games'
+import { Games, SuggestionGames } from '@/types/Games'
 
 class SuggestionService {
-  getSuggestions(games: GamesType[]) {
+  getSuggestions(games: Games[]) {
     const controller = new AbortController()
     const req = axios.post<SuggestionGames>('/api/openAi', {
       games,
