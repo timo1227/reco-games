@@ -59,6 +59,10 @@ export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
     setSearchTerm('')
   }
 
+  useEffect(() => {
+    console.log('Selected Games: ', selectedGames)
+  }, [selectedGames])
+
   if (isMobile) {
     return (
       <div

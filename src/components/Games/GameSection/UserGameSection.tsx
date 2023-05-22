@@ -19,10 +19,15 @@ export default function UserGameSection() {
     <div className='dashboard-inner h-full w-full overflow-y-scroll scrollbar-hide dark:bg-black'>
       <div className='game-cards flex flex-col items-center justify-center sm:flex-row sm:items-stretch md:flex-wrap md:justify-around'>
         {games.map((game) => (
-          <Card key={game.id} className='bg-black'>
+          <Card key={game.id} className='dark:bg-black'>
             <CardContent>
               <CardDescription>
-                <p>{game.background_image}</p>
+                <Image
+                  src={game.background_image}
+                  alt={game.name}
+                  width={500}
+                  height={500}
+                />
               </CardDescription>
             </CardContent>
             <CardHeader>
