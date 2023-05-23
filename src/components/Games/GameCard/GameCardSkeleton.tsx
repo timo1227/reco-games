@@ -10,7 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export const GameCardSkeleton = () => {
   return (
-    <Card className={cn('h-[450px]', 'overflow-hidden px-0')}>
+    <Card className={cn('h-[375px]', 'overflow-hidden px-0')}>
       <CardHeader className={cn('mb-5 h-[65%] p-0')}>
         <Skeleton className='h-full w-full rounded-none' />
       </CardHeader>
