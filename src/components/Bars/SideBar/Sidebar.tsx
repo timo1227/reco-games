@@ -1,48 +1,26 @@
-import { GamesType } from "Games";
-import Header from "./componets/Header";
-import { ChevronRightIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
+import { Games } from '@/types/Games'
+
+import Header from './components/Header'
+import SideBarLink from './components/Link'
 
 interface SideBarProps {
-  gamesList: GamesType;
-  gameID: string;
-  steamGames: {
-    appid: number;
-    name: string;
-  }[];
+  gameID: string
+  GamesList: Games[]
 }
 
-export default function SideBar({
-  gamesList,
-  gameID,
-  steamGames,
-}: SideBarProps) {
+export default function SideBar({ gameID, GamesList }: SideBarProps) {
   return (
-    <div className="sticky left-0 bg-white dark:bg-[#181818] h-full w-[25rem]">
-      <Header gamesList={gamesList} gameID={gameID} steamGames={steamGames} />
-      <div className="mt-10">
-        <Link
-          href={`/Dashboard/Games/${gameID}`}
-          className="flex items-center justify-between w-full px-4 py-2 text-left"
-        >
-          View Games
-          <ChevronRightIcon className="w-5 h-5" />
-        </Link>
-        <Link
+    <div className='sticky left-0 h-full w-[25rem] bg-white dark:bg-black'>
+      <Header gameID={gameID} GamesList={GamesList} />
+
+      <div className='mt-10'>
+        <SideBarLink href='/' name='Profile' />
+        <SideBarLink href={`/Dashboard/Games/${gameID}`} name='View Games' />
+        <SideBarLink
           href={`/Dashboard/Suggestions/${gameID}`}
-          className="flex items-center justify-between w-full px-4 py-2 text-left"
-        >
-          Suggestions
-          <ChevronRightIcon className="w-5 h-5" />
-        </Link>
-        {/* <Link
-          href={"/"}
-          className="flex items-center justify-between w-full px-4 py-2 text-left"
-        >
-          Profile
-          <ChevronRightIcon className="w-5 h-5" />
-        </Link> */}
+          name='Suggestions'
+        />
       </div>
     </div>
-  );
+  )
 }

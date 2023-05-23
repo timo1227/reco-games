@@ -1,102 +1,87 @@
-"use client";
-import { useEffect, useState } from "react";
-import { GamesType } from "Games";
+'use client'
+
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+
+import { Games } from '@/types/Games'
+import useGameContext from '@/hooks/useGameContext'
 
 interface SearchBarProps {
-  steamGames: {
-    appid: number;
-    name: string;
-  }[];
-  gameID: string;
-  gamesList: any[];
+  GamesList: Games[]
+  gameID: string
 }
 
-export default function SearchBar({
-  steamGames,
-  gamesList,
-  gameID,
-}: SearchBarProps) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedGames, setSelectedGames] = useState<GamesType>([]);
-  const [isMobile, setIsMobile] = useState(false);
+export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedGames, setSelectedGames] = useState<Games[]>([])
+  const [isMobile, setIsMobile] = useState(false)
+  const { games, setGames } = useGameContext()
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+      setIsMobile(window.innerWidth < 768)
+    }
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize)
 
     // Initial check for mobile
-    setIsMobile(window.innerWidth < 768);
+    setIsMobile(window.innerWidth < 768)
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   const filteredGames =
     searchTerm.length >= 3
-      ? steamGames.filter((game) =>
+      ? GamesList.filter((game) =>
           game.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
-      : [];
+      : []
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+    setSearchTerm(event.target.value)
+  }
 
   const handleSubmitButton = async () => {
-    gamesList.push(...selectedGames);
-    const res = await fetch(`/api/games/${gameID}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        games: gamesList,
-      }),
-    });
+    const newGamesList = [...games, ...selectedGames]
 
-    const data = await res.json();
+    axios
+      .patch(`/api/games/${gameID}`, {
+        games: newGamesList,
+      })
+      .catch((error) => {
+        console.log(error)
+      })
 
-    if (!res.ok) {
-      throw new Error(data.message || "Something went wrong!");
-    }
+    setGames(newGamesList)
+    setSelectedGames([])
+    setSearchTerm('')
+  }
 
-    setSelectedGames([]);
-    setSearchTerm("");
-    // Refresh the page to show the new game
-    // Wait 5 seconds to allow the database to update
-    setTimeout(() => {
-      window.location.reload();
-    }, 5000);
-  };
-
-  // useEffect(() => {
-  //   // Log the selected games
-  //   console.log(selectedGames);
-  // }, [selectedGames]);
+  useEffect(() => {
+    console.log('Selected Games: ', selectedGames)
+  }, [selectedGames])
 
   if (isMobile) {
     return (
       <div
-        role="dialog"
-        id="radix-:r5:"
-        aria-describedby="radix-:r7:"
-        aria-labelledby="radix-:r6:"
-        data-state="open"
-        aria-label="Search Command Menu"
-        cmdk-dialog=""
+        role='dialog'
+        id='radix-:r5:'
+        aria-describedby='radix-:r7:'
+        aria-labelledby='radix-:r6:'
+        data-state='open'
+        aria-label='Search Command Menu'
+        cmdk-dialog=''
         tabIndex={-1}
-        className="overflow-x-hidden"
+        className='overflow-x-hidden'
       >
         <div
-          className="fixed bottom-0 top-1/4 rounded-t-lg overflow-y-auto pt-1 pb-2 bg-gray-0 mx-auto max-w-2xl w-full md:top-1/4 md:left-1/2 md:-translate-x-1/2 md:rounded-lg md:border md:border-gray-300 md:dark:border-gray-500 md:bottom-auto"
-          cmdk-root=""
+          className='bg-gray-0 fixed bottom-0 top-1/4 mx-auto w-full max-w-2xl overflow-y-auto rounded-t-lg pb-2 pt-1 md:bottom-auto md:left-1/2 md:top-1/4 md:-translate-x-1/2 md:rounded-lg md:border md:border-gray-300 md:dark:border-gray-500'
+          cmdk-root=''
         >
           {/* Create Submit Button and Exit Button */}
-          <div className="flex justify-between items-center px-4 py-2 border-b border-gray-300 dark:border-gray-600">
+          <div className='flex items-center justify-between border-b border-gray-300 px-4 py-2 dark:border-gray-600'>
             {/* <button
               aria-label="Submit"
               className="absolute right-4 top-[26px] border border-gray-200 transition text-xs text-gray-400 px-1 rounded-[4px] h-[20px] font-medium hover:text-gray-500 hover:bg-green-400 md:block"
@@ -107,70 +92,71 @@ export default function SearchBar({
               Submit
             </button> */}
           </div>
-          <label htmlFor=":rag:" cmdk-label="" id=":raf:" className="hidden">
+          <label htmlFor=':rag:' cmdk-label='' id=':raf:' className='hidden'>
             Search Command Menu
           </label>
           <input
-            className="py-4 px-4 w-full outline-none border-b dark:border-t rounded-t-lg border-gray-300 dark:border-gray-600 bg-transparent md:border-t-none dark:bg-black/20"
-            placeholder="Search Games"
-            cmdk-input=""
-            autoComplete="off"
-            autoCorrect="off"
-            spellCheck="false"
-            aria-autocomplete="list"
-            role="combobox"
-            aria-expanded="true"
-            aria-controls=":rae:"
-            aria-labelledby=":raf:"
-            id=":rag:"
-            type="text"
+            className='md:border-t-none w-full rounded-t-lg border-b border-gray-300 bg-transparent px-4 py-4 outline-none dark:border-t dark:border-gray-600 dark:bg-black/20'
+            placeholder='Search Games'
+            cmdk-input=''
+            autoComplete='off'
+            autoCorrect='off'
+            spellCheck='false'
+            aria-autocomplete='list'
+            role='combobox'
+            aria-expanded='true'
+            aria-controls=':rae:'
+            aria-labelledby=':raf:'
+            id=':rag:'
+            type='text'
             value={searchTerm}
             onChange={handleInputChange}
           />
           <button
-            aria-label="Submit"
-            className="absolute right-4 top-[40px] border border-gray-200 transition text-xs text-gray-400 px-1 rounded-[4px] h-[20px] font-medium hover:text-gray-500 hover:bg-green-400 md:block"
+            aria-label='Submit'
+            className='absolute right-4 top-[40px] h-[20px] rounded-[4px] border border-gray-200 px-1 text-xs font-medium text-gray-400 transition hover:bg-green-400 hover:text-gray-500 md:block'
             tabIndex={-1}
-            type="button"
+            type='button'
             onClick={handleSubmitButton}
           >
             Submit
           </button>
           <div
-            className="relative px-2 max-h-96"
-            data-dirty-and-empty="false"
-            data-fix-height="false"
-            cmdk-list=""
-            role="listbox"
-            aria-label="Suggestions"
-            id=":rb6:"
-            aria-labelledby=":rb8:"
+            className='relative max-h-96 px-2'
+            data-dirty-and-empty='false'
+            data-fix-height='false'
+            cmdk-list=''
+            role='listbox'
+            aria-label='Suggestions'
+            id=':rb6:'
+            aria-labelledby=':rb8:'
           >
             {filteredGames.length > 0
               ? filteredGames.map((game) => (
                   <div
-                    key={game.appid}
+                    key={game.id}
                     className={
-                      gamesList.includes(game) || selectedGames.includes(game)
-                        ? "hidden"
-                        : "py-2 px-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-black/10"
+                      selectedGames.includes(game) ||
+                      games.some((g) => g.id === game.id)
+                        ? 'hidden'
+                        : 'cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-black/10'
                     }
-                    role="option"
-                    id=":rah:"
-                    aria-selected="false"
+                    role='option'
+                    id=':rah:'
+                    aria-selected='false'
                   >
                     <div
-                      className="flex items-center justify-between overflow-x-hidden"
+                      className='flex items-center justify-between overflow-x-hidden'
                       onClick={() => {
-                        setSelectedGames([...selectedGames, game]);
+                        setSelectedGames([...selectedGames, game])
                       }}
                     >
-                      <div className="flex items-center">
-                        <div className="flex flex-col">
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">
-                            <span className="truncate">{game.name}</span>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
-                              {game.appid}
+                      <div className='flex items-center'>
+                        <div className='flex flex-col'>
+                          <div className='text-sm font-medium text-gray-900 dark:text-white'>
+                            <span className='truncate'>{game.name}</span>
+                            <p className='text-xs text-gray-500 dark:text-gray-400'>
+                              {game.id}
                             </p>
                           </div>
                         </div>
@@ -179,96 +165,97 @@ export default function SearchBar({
                   </div>
                 ))
               : searchTerm.length >= 3 && (
-                  <div className="text-center text-gray-500 dark:text-gray-400">
+                  <div className='text-center text-gray-500 dark:text-gray-400'>
                     No games found.
                   </div>
                 )}
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   return (
     <div
-      role="dialog"
-      id="radix-:r5:"
-      aria-describedby="radix-:r7:"
-      aria-labelledby="radix-:r6:"
-      data-state="open"
-      aria-label="Search Command Menu"
-      cmdk-dialog=""
+      role='dialog'
+      id='radix-:r5:'
+      aria-describedby='radix-:r7:'
+      aria-labelledby='radix-:r6:'
+      data-state='open'
+      aria-label='Search Command Menu'
+      cmdk-dialog=''
       tabIndex={-1}
-      className="overflow-x-hidden"
+      className='overflow-x-hidden'
     >
       <div
-        className="fixed bottom-0 top-1/4 rounded-t-lg overflow-y-auto pt-1 pb-2 bg-gray-0 mx-auto max-w-2xl w-full  md:top-1/4 md:left-1/2 md:-translate-x-1/2 md:rounded-lg md:border md:border-gray-300 md:dark:border-gray-500  md:bottom-auto"
-        cmdk-root=""
+        className='bg-gray-0 fixed bottom-0 top-1/4 mx-auto w-full max-w-2xl overflow-y-auto rounded-t-lg pb-2 pt-1  md:bottom-auto md:left-1/2 md:top-1/4 md:-translate-x-1/2 md:rounded-lg md:border md:border-gray-300  md:dark:border-gray-500'
+        cmdk-root=''
       >
-        <label htmlFor=":rag:" cmdk-label="" id=":raf:" className="hidden">
+        <label htmlFor=':rag:' cmdk-label='' id=':raf:' className='hidden'>
           Search Command Menu
         </label>
         <input
-          className="py-4 px-4 w-full outline-none border-b dark:border-t rounded-t-lg border-gray-300 dark:border-gray-600 bg-transparent md:border-t-none dark:bg-black/20"
-          placeholder="Search Games"
-          cmdk-input=""
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck="false"
-          aria-autocomplete="list"
-          role="combobox"
-          aria-expanded="true"
-          aria-controls=":rae:"
-          aria-labelledby=":raf:"
-          id=":rag:"
-          type="text"
+          className='md:border-t-none w-full rounded-t-lg border-b border-gray-300 bg-transparent px-4 py-4 outline-none dark:border-t dark:border-gray-600 dark:bg-black/20'
+          placeholder='Search Games'
+          cmdk-input=''
+          autoComplete='off'
+          autoCorrect='off'
+          spellCheck='false'
+          aria-autocomplete='list'
+          role='combobox'
+          aria-expanded='true'
+          aria-controls=':rae:'
+          aria-labelledby=':raf:'
+          id=':rag:'
+          type='text'
           value={searchTerm}
           onChange={handleInputChange}
         />
         <button
-          aria-label="Submit"
-          className="absolute hidden right-4 top-[26px] border border-gray-200 transition text-xs text-gray-400 px-1 rounded-[4px] h-[20px] font-medium hover:text-gray-500 hover:bg-green-400 md:block"
+          aria-label='Submit'
+          className='absolute right-4 top-[26px] hidden h-[20px] rounded-[4px] border border-gray-200 px-1 text-xs font-medium text-gray-400 transition hover:bg-green-400 hover:text-gray-500 md:block'
           tabIndex={-1}
-          type="button"
+          type='button'
           onClick={handleSubmitButton}
         >
           Submit
         </button>
         <div
-          className="relative px-2 max-h-96"
-          data-dirty-and-empty="false"
-          data-fix-height="false"
-          cmdk-list=""
-          role="listbox"
-          aria-label="Suggestions"
-          id=":rb6:"
-          aria-labelledby=":rb8:"
+          className='relative max-h-96 px-2'
+          data-dirty-and-empty='false'
+          data-fix-height='false'
+          cmdk-list=''
+          role='listbox'
+          aria-label='Suggestions'
+          id=':rb6:'
+          aria-labelledby=':rb8:'
         >
           {filteredGames.length > 0
             ? filteredGames.map((game) => (
                 <div
-                  key={game.appid}
+                  key={game.id}
                   className={
-                    gamesList.includes(game) || selectedGames.includes(game)
-                      ? "hidden"
-                      : "py-2 px-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-black/10"
+                    selectedGames.includes(game) ||
+                    games.some((g) => g.id === game.id)
+                      ? 'hidden'
+                      : 'cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-black/10'
                   }
-                  role="option"
-                  id=":rah:"
-                  aria-selected="false"
+                  role='option'
+                  id=':rah:'
+                  aria-selected='false'
                 >
                   <div
-                    className="flex items-center justify-between overflow-x-hidden"
+                    className='flex items-center justify-between overflow-x-hidden'
                     onClick={() => {
-                      setSelectedGames([...selectedGames, game]);
+                      setSelectedGames([...selectedGames, game])
                     }}
                   >
-                    <div className="flex items-center">
-                      <div className="flex flex-col">
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">
-                          <span className="truncate">{game.name}</span>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            {game.appid}
+                    <div className='flex items-center'>
+                      <div className='flex flex-col'>
+                        <div className='text-sm font-medium text-gray-900 dark:text-white'>
+                          <span className='truncate'>{game.name}</span>
+                          <p className='text-xs text-gray-500 dark:text-gray-400'>
+                            {game.id}
                           </p>
                         </div>
                       </div>
@@ -277,12 +264,12 @@ export default function SearchBar({
                 </div>
               ))
             : searchTerm.length >= 3 && (
-                <div className="text-center text-gray-500 dark:text-gray-400 p-4">
+                <div className='p-4 text-center text-gray-500 dark:text-gray-400'>
                   No games found.
                 </div>
               )}
         </div>
       </div>
     </div>
-  );
+  )
 }

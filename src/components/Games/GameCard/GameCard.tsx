@@ -1,71 +1,35 @@
-import Image from "next/image";
+import Image from 'next/image'
 
-async function getAppDeatails(appid: string) {
-  const url = `https://store.steampowered.com/api/appdetails?appids=${appid}`;
-  const res = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data;
-}
+import { Games } from '@/types/Games'
+import { cn } from '@/lib/utils'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 
-interface Props {
-  game: {
-    appid: string;
-    name: string;
-  };
-}
+import { GamePlatforms } from './GamePlatforms'
 
-export default async function GameCard({ game }: Props) {
-  const appDetails = await getAppDeatails(game.appid);
-  let details = "";
-  let headerImage = "";
-
-  if (!appDetails[game.appid].success) {
-    return (
-      <>
-        <div className=" border border-gray-400 flex flex-col justify-center items-center max-w-md p-5 rounded-lg  ">
-          <h3 className="font-bold">{game.name}</h3>
-          <p>Sorry, no details available for this game.</p>
-        </div>
-      </>
-    );
-  }
-
-  details = appDetails[game.appid].data.short_description;
-  headerImage = appDetails[game.appid].data.header_image
-    ? appDetails[game.appid].data.header_image
-    : "";
-
+export const GameCard = ({ game }: { game: Games }) => {
   return (
-    <>
-      <div
-        key={game.appid}
-        className="border-4 border-black/10 max-w-xs rounded-xl overflow-hidden m-5 shadow-lg"
-      >
-        {headerImage && (
-          <Image
-            className=""
-            height={1600}
-            width={500}
-            src={headerImage}
-            alt="header image"
-          />
-        )}
-        <h3 className="font-bold h-20 text-center w-full flex justify-center items-center">
-          {game.name}
-        </h3>
-        {details && (
-          <div
-            className="p-5 border-t-2 border-gray-400 text-sm text-gray-500 leading-relaxed overflow-y-auto flex justify-center items-center"
-            dangerouslySetInnerHTML={{ __html: details }}
-          />
-        )}
-      </div>
-    </>
-  );
+    <Card className={cn('h-[375px]', 'overflow-hidden px-0')}>
+      <CardHeader className={cn('mb-5 h-[65%] p-0')}>
+        <Image
+          src={game.background_image}
+          alt={game.name}
+          width={800}
+          height={800}
+          className='h-full w-full object-cover'
+        />
+      </CardHeader>
+      <CardContent>
+        <CardTitle>{game.name}</CardTitle>
+      </CardContent>
+      <CardFooter>
+        <GamePlatforms />
+      </CardFooter>
+    </Card>
+  )
 }
