@@ -1,41 +1,35 @@
 import Image from 'next/image'
 
 import { Games } from '@/types/Games'
+import { cn } from '@/lib/utils'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 
-interface Props {
-  game: Games
-}
+import { GamePlatforms } from './GamePlatforms'
 
-export default function GameCard({ game }: Props) {
+export const GameCard = ({ game }: { game: Games }) => {
   return (
-    <>
-      <div className=' flex max-w-md flex-col items-center justify-center rounded-lg border border-gray-400 p-5  '>
-        <h3 className='font-bold'>{game.name}</h3>
-        <p>Sorry, no details available for this game.</p>
-      </div>
-      {/* <div
-        key={game.appid}
-        className='m-5 max-w-xs overflow-hidden rounded-xl border-4 border-black/10 shadow-lg'
-      >
-        {headerImage && (
-          <Image
-            className=''
-            height={1600}
-            width={500}
-            src={headerImage}
-            alt='header image'
-          />
-        )}
-        <h3 className='flex h-20 w-full items-center justify-center text-center font-bold'>
-          {game.name}
-        </h3>
-        {details && (
-          <div
-            className='flex items-center justify-center overflow-y-auto border-t-2 border-gray-400 p-5 text-sm leading-relaxed text-gray-500'
-            dangerouslySetInnerHTML={{ __html: details }}
-          />
-        )}
-      </div> */}
-    </>
+    <Card className={cn('h-[375px]', 'overflow-hidden px-0')}>
+      <CardHeader className={cn('mb-5 h-[65%] p-0')}>
+        <Image
+          src={game.background_image}
+          alt={game.name}
+          width={800}
+          height={800}
+          className='h-full w-full object-cover'
+        />
+      </CardHeader>
+      <CardContent>
+        <CardTitle>{game.name}</CardTitle>
+      </CardContent>
+      <CardFooter>
+        <GamePlatforms />
+      </CardFooter>
+    </Card>
   )
 }

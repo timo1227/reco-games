@@ -1,8 +1,16 @@
+import { GameCardSkeleton } from '@/components/Games/GameCard/GameCardSkeleton'
+
 export default function Loading() {
-  // Loading Spinner Annimation
   return (
-    <div className="flex justify-center items-center h-full w-full">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-4 border-black dark:border-white"></div>
+    <div className='dashboard-inner h-full w-full overflow-y-scroll px-5 scrollbar-hide'>
+      <div className='game-cards items-start justify-center gap-6 md:grid lg:grid-cols-2 xl:grid-cols-3'>
+        <GameCardSkeleton />
+        <GameCardSkeleton />
+        <GameCardSkeleton />
+        <GameCardSkeleton />
+        <GameCardSkeleton />
+        <GameCardSkeleton />
+      </div>
     </div>
-  );
+  )
 }

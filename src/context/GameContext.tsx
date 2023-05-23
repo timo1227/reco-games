@@ -6,6 +6,7 @@ import { Games } from '@/types/Games'
 interface GameContextType {
   games: Games[]
   setGames: React.Dispatch<React.SetStateAction<any>>
+  loading: boolean
 }
 
 interface UserGameCollection {
@@ -23,15 +24,19 @@ export default function GameProvider({
   gamesID: string
 }) {
   const [games, setGames] = useState<GameContextType['games']>([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     axios
       .get<UserGameCollection>(`/api/games/${gamesID}`)
       .then((res) => {
         setGames(res.data.games)
+        setLoading(false)
       })
       .catch((err) => {
         console.log(err)
+        setLoading(false)
       })
   }, [gamesID])
 
@@ -40,6 +45,7 @@ export default function GameProvider({
       value={{
         games,
         setGames,
+        loading,
       }}
     >
       {children}
