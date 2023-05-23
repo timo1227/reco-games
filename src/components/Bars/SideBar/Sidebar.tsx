@@ -15,7 +15,7 @@ export default function SideBar({ gameID, GamesList }: SideBarProps) {
 
       <div className='mt-10'>
         <SideBarLink href='/' name='Profile' />
-        <SideBarLink href={`/Dashboard/Games/${gameID}`} name='View Games' />
+        <SideBarLink href={`/Dashboard/Games/${gameID}`} name='My Games' />
         <SideBarLink
           href={`/Dashboard/Suggestions/${gameID}`}
           name='Suggestions'

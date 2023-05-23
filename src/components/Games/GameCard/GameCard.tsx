@@ -12,9 +12,17 @@ import {
 
 import { GamePlatforms } from './GamePlatforms'
 
-export const GameCard = ({ game }: { game: Games }) => {
+interface Props {
+  game: Games
+  cardClickAction: () => void
+}
+
+export const GameCard = ({ game, cardClickAction }: Props) => {
   return (
-    <Card className={cn('h-[375px]', 'overflow-hidden px-0')}>
+    <Card
+      className={cn('h-[375px]', 'overflow-hidden px-0')}
+      onClick={() => cardClickAction()}
+    >
       <CardHeader className={cn('mb-5 h-[65%] p-0')}>
         <Image
           src={game.background_image}

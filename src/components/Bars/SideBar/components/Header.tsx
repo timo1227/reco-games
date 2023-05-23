@@ -41,10 +41,10 @@ export default function Header({ gameID, GamesList }: GameCardHeaderProps) {
     <>
       <div className='flex w-full items-center'>
         <button
-          className='mx-3 mt-2 w-full rounded border-2 border-black bg-gray-200/80 px-2 py-1 text-left text-black transition hover:cursor-text hover:bg-slate-200 dark:border-white dark:bg-black/60 dark:text-white dark:hover:bg-black/50'
+          className='mx-3 mt-2 w-full rounded border-2 border-black px-2 py-1 text-left text-black transition hover:cursor-text hover:bg-slate-200/25 dark:border-white dark:bg-black/60 dark:text-white dark:hover:bg-black/50'
           onClick={() => setToggleSearchBar(!toggleSearchBar)}
         >
-          <BiSearchAlt2 className='mr-2 inline-block' />
+          <BiSearchAlt2 className='mr-2 inline-block font-thin' />
           Search Game...
         </button>
       </div>

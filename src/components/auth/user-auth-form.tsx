@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { signIn } from 'next-auth/react'
 
+import { useToast } from '../ui/use-toast'
+
 export default function UserAuthForm() {
   const [register, setRegister] = useState(false)
   const [username, setUsername] = useState('')
@@ -15,6 +17,7 @@ export default function UserAuthForm() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { push } = useRouter()
+  const { toast } = useToast()
 
   const redirectToHome = () => {
     push('/')
@@ -32,6 +35,10 @@ export default function UserAuthForm() {
         setLoading(false)
         setError(res.error)
       } else {
+        toast({
+          title: 'Welcome back!',
+          description: 'You have successfully logged in.',
+        })
         redirectToHome()
       }
     } catch (err: any) {
