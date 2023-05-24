@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 
 import { Games } from '@/types/Games'
@@ -9,19 +11,28 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { useToast } from '@/components/ui/use-toast'
 
 import { GamePlatforms } from './GamePlatforms'
 
 interface Props {
   game: Games
-  cardClickAction: () => void
 }
 
-export const GameCard = ({ game, cardClickAction }: Props) => {
+export const GameCard = ({ game }: Props) => {
+  const { toast } = useToast()
+
+  const onCardClick = () => {
+    toast({
+      title: 'TODO: Add Game Page',
+      description: 'Game Page is not implemented yet',
+      variant: 'destructive',
+    })
+  }
   return (
     <Card
       className={cn('h-[375px]', 'overflow-hidden px-0')}
-      onClick={() => cardClickAction()}
+      onClick={() => onCardClick()}
     >
       <CardHeader className={cn('mb-5 h-[65%] p-0')}>
         <Image
