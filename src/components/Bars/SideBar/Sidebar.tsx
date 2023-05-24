@@ -13,13 +13,14 @@ export default function SideBar({ gameID, GamesList }: SideBarProps) {
     <div className='sticky left-0 h-full w-[25rem] bg-white dark:bg-black'>
       <Header gameID={gameID} GamesList={GamesList} />
 
-      <div className='mt-10'>
-        <SideBarLink href='/' name='Profile' />
+      <div className='mt-5'>
+        <SideBarLink href='/Dashboard/Games/All' name='View Games' />
         <SideBarLink href={`/Dashboard/Games/${gameID}`} name='My Games' />
         <SideBarLink
           href={`/Dashboard/Suggestions/${gameID}`}
           name='Suggestions'
         />
+        <SideBarLink href='/' name='Profile' />
       </div>
     </div>
   )

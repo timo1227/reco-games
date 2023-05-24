@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { BiSearchAlt2 } from 'react-icons/bi'
 
 import { Games } from '@/types/Games'
@@ -13,6 +14,8 @@ interface GameCardHeaderProps {
 
 export default function Header({ gameID, GamesList }: GameCardHeaderProps) {
   const [toggleSearchBar, setToggleSearchBar] = useState(false)
+
+  const { data: session } = useSession()
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -48,7 +51,9 @@ export default function Header({ gameID, GamesList }: GameCardHeaderProps) {
           Search Game...
         </button>
       </div>
-      <h3 className='mt-5 px-3'>Dashboard</h3>
+      <h3 className='mt-5 px-3 text-xl font-bold'>
+        {session?.user.name}&apos;s Dashboard
+      </h3>
       {toggleSearchBar && (
         <div className='z-55 fixed left-0 top-0 h-full w-full bg-[#fffffff1] dark:bg-[#181818f1]'>
           <SearchBar GamesList={GamesList} gameID={gameID} />
