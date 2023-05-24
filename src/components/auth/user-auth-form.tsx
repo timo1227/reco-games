@@ -20,7 +20,7 @@ export default function UserAuthForm() {
   const { toast } = useToast()
 
   const redirectToHome = () => {
-    push('/')
+    push('/Dashboard/Games/All')
   }
 
   const loginUser = async () => {

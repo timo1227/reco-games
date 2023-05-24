@@ -1,6 +1,10 @@
 import axios from 'axios'
 
 import { GameCard } from '@/components/Games/GameCard/GameCard'
+import {
+  GameContainer,
+  GameInnerContainer,
+} from '@/components/Games/GameSection/GameContainers'
 
 import { FetchGamesRes } from '../../layout'
 
@@ -25,10 +29,10 @@ export default async function Page() {
   const games = await getRawGames()
 
   return (
-    <div className='dashboard-inner h-full w-full overflow-y-scroll px-5 scrollbar-hide'>
-      <div className='game-cards items-start justify-center gap-6 md:grid lg:grid-cols-2 xl:grid-cols-3'>
+    <GameContainer>
+      <GameInnerContainer>
         {games && games.map((game) => <GameCard key={game.id} game={game} />)}
-      </div>
-    </div>
+      </GameInnerContainer>
+    </GameContainer>
   )
 }

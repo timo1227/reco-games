@@ -35,10 +35,10 @@ export default async function Layout({ children }: LayoutProps) {
 
   return (
     <GamesProvider gamesID={user.games}>
-      <div className='mx-auto flex h-full max-w-7xl flex-row pt-24'>
+      <main className='mx-auto flex h-full max-w-7xl flex-row pt-24'>
         <SideBar gameID={user.games} GamesList={RawgList} />
         {children}
-      </div>
+      </main>
     </GamesProvider>
   )
 }

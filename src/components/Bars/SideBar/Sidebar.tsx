@@ -10,7 +10,7 @@ interface SideBarProps {
 
 export default function SideBar({ gameID, GamesList }: SideBarProps) {
   return (
-    <div className='sticky left-0 h-full w-[25rem] bg-white dark:bg-black'>
+    <aside className='sticky left-0 hidden h-full w-[25rem] bg-white dark:bg-black lg:block'>
       <Header gameID={gameID} GamesList={GamesList} />
 
       <div className='mt-5'>
@@ -22,6 +22,6 @@ export default function SideBar({ gameID, GamesList }: SideBarProps) {
         />
         <SideBarLink href='/' name='Profile' />
       </div>
-    </div>
+    </aside>
   )
 }

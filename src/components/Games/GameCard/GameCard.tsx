@@ -1,9 +1,9 @@
 'use client'
 
-import { platform } from 'os'
 import Image from 'next/image'
 
 import { Games } from '@/types/Games'
+import getCroppedImgUrl from '@/lib/image-url'
 import { cn } from '@/lib/utils'
 import {
   Card,
@@ -37,7 +37,7 @@ export const GameCard = ({ game }: Props) => {
     >
       <CardHeader className={cn('mb-5 h-[65%] p-0')}>
         <Image
-          src={game.background_image}
+          src={getCroppedImgUrl(game.background_image)}
           alt={game.name}
           width={800}
           height={800}

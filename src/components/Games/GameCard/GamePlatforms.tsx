@@ -1,5 +1,5 @@
 import React from 'react'
-import { BsGlobe } from 'react-icons/bs'
+import { BsGlobe, BsNintendoSwitch } from 'react-icons/bs'
 import {
   FaAndroid,
   FaApple,
@@ -9,7 +9,6 @@ import {
   FaXbox,
 } from 'react-icons/fa'
 import { MdPhoneIphone } from 'react-icons/md'
-import { SiNintendo } from 'react-icons/si'
 
 import { Platforms } from '@/types/Games'
 
@@ -21,7 +20,7 @@ export const GamePlatforms = ({ platforms }: { platforms: Platforms[] }) => {
     ios: FaApple,
     android: FaAndroid,
     linux: FaLinux,
-    nintendo: SiNintendo,
+    nintendo: BsNintendoSwitch,
     mac: MdPhoneIphone,
     web: BsGlobe,
   }
