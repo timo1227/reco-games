@@ -1,5 +1,6 @@
 'use client'
 
+import { platform } from 'os'
 import Image from 'next/image'
 
 import { Games } from '@/types/Games'
@@ -44,11 +45,15 @@ export const GameCard = ({ game }: Props) => {
         />
       </CardHeader>
       <CardContent>
-        <CardTitle>{game.name}</CardTitle>
+        {/* ADD PLATFORMS TO DB MODEL */}
+        {game.parent_platforms && (
+          <GamePlatforms
+            platforms={game.parent_platforms.map((p) => p.platform)}
+          />
+        )}
+        <CardTitle className='text-xl font-bold'>{game.name}</CardTitle>
       </CardContent>
-      <CardFooter>
-        <GamePlatforms />
-      </CardFooter>
+      <CardFooter></CardFooter>
     </Card>
   )
 }

@@ -15,7 +15,7 @@ export const metadata = {
   description: 'Dashboard for the app ',
 }
 
-interface FetchGamesRes {
+export interface FetchGamesRes {
   next: string
   count: number
   results: Games[]
