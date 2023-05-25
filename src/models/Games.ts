@@ -7,6 +7,15 @@ const GameSchema = new mongoose.Schema({
       slug: String,
       name: String,
       background_image: String,
+      parent_platforms: [
+        {
+          platform: {
+            id: Number,
+            slug: String,
+            name: String,
+          },
+        },
+      ],
     },
   ],
 })
