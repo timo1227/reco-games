@@ -5,21 +5,13 @@ import {
 } from '@/components/Games/GameSection/GameContainers'
 
 export default function Loading() {
+  const skeletonCount = 12
   return (
     <GameContainer>
       <GameInnerContainer>
-        <GameCardSkeleton />
-        <GameCardSkeleton />
-        <GameCardSkeleton />
-        <GameCardSkeleton />
-        <GameCardSkeleton />
-        <GameCardSkeleton />
-        <GameCardSkeleton />
-        <GameCardSkeleton />
-        <GameCardSkeleton />
-        <GameCardSkeleton />
-        <GameCardSkeleton />
-        <GameCardSkeleton />
+        {Array.from({ length: skeletonCount }).map((_, i) => (
+          <GameCardSkeleton key={i} />
+        ))}
       </GameInnerContainer>
     </GameContainer>
   )
