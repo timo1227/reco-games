@@ -9,7 +9,7 @@ export const GameInnerContainer = ({ children, className }: Props) => {
   return (
     <div
       className={cn(
-        'grid items-start justify-center gap-6 md:grid-cols-2 xl:grid-cols-3',
+        'grid items-start justify-evenly justify-items-center gap-6 md:grid-cols-2 xl:grid-cols-3',
         className
       )}
     >
