@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import { Games } from '@/types/Games'
 import useGameContext from '@/hooks/useGameContext'
+import { useToast } from '@/components/ui/use-toast'
 
 interface SearchBarProps {
   GamesList: Games[]
@@ -15,7 +16,8 @@ export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedGames, setSelectedGames] = useState<Games[]>([])
   const [isMobile, setIsMobile] = useState(false)
-  const { games, setGames } = useGameContext()
+  const { games } = useGameContext()
+  const { toast } = useToast()
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,19 +46,11 @@ export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
   }
 
   const handleSubmitButton = async () => {
-    const newGamesList = [...games, ...selectedGames]
-
-    axios
-      .patch(`/api/games/${gameID}`, {
-        games: newGamesList,
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-
-    setGames(newGamesList)
-    setSelectedGames([])
-    setSearchTerm('')
+    toast({
+      title: 'All Game Pages with query: ' + searchTerm,
+      description: 'Coming Soon!',
+      variant: 'destructive',
+    })
   }
 
   useEffect(() => {
@@ -76,10 +70,7 @@ export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
         tabIndex={-1}
         className='overflow-x-hidden'
       >
-        <div
-          className='bg-gray-0 fixed bottom-0 top-1/4 mx-auto w-full max-w-2xl overflow-y-auto rounded-t-lg pb-2 pt-1 md:bottom-auto md:left-1/2 md:top-1/4 md:-translate-x-1/2 md:rounded-lg md:border md:border-gray-300 md:dark:border-gray-500'
-          cmdk-root=''
-        >
+        <div cmdk-root=''>
           {/* Create Submit Button and Exit Button */}
           <div className='flex items-center justify-between border-b border-gray-300 px-4 py-2 dark:border-gray-600'>
             {/* <button
@@ -187,10 +178,7 @@ export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
       tabIndex={-1}
       className='overflow-x-hidden'
     >
-      <div
-        className='bg-gray-0 fixed bottom-0 top-1/4 mx-auto w-full max-w-2xl overflow-y-auto rounded-t-lg pb-2 pt-1  md:bottom-auto md:left-1/2 md:top-1/4 md:-translate-x-1/2 md:rounded-lg md:border md:border-gray-300  md:dark:border-gray-500'
-        cmdk-root=''
-      >
+      <div cmdk-root=''>
         <label htmlFor=':rag:' cmdk-label='' id=':raf:' className='hidden'>
           Search Command Menu
         </label>
@@ -213,12 +201,12 @@ export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
         />
         <button
           aria-label='Submit'
-          className='absolute right-4 top-[26px] hidden h-[20px] rounded-[4px] border border-gray-200 px-1 text-xs font-medium text-gray-400 transition hover:bg-green-400 hover:text-gray-500 md:block'
+          className='absolute right-4 top-[26px] hidden h-[20px] rounded-[4px] border border-gray-200 px-1 text-xs font-medium text-gray-400 transition hover:bg-gray-800 hover:text-white md:block'
           tabIndex={-1}
           type='button'
           onClick={handleSubmitButton}
         >
-          Submit
+          Search
         </button>
         <div
           className='relative max-h-96 px-2'
@@ -246,9 +234,13 @@ export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
                 >
                   <div
                     className='flex items-center justify-between overflow-x-hidden'
-                    onClick={() => {
-                      setSelectedGames([...selectedGames, game])
-                    }}
+                    onClick={() =>
+                      toast({
+                        title: 'Game Page',
+                        description: 'Soon: Redirecting to game page...',
+                        variant: 'destructive',
+                      })
+                    }
                   >
                     <div className='flex items-center'>
                       <div className='flex flex-col'>
