@@ -1,8 +1,7 @@
-import { ObjectId } from 'mongodb'
 import { User } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 
-type UserId = ObjectId
+type UserId = string
 type GameId = ObjectId
 
 declare module 'next-auth/jwt' {

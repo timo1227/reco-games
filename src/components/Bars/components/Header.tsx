@@ -20,10 +20,7 @@ export default async function Header({ GamesList }: Props) {
             <BiSearchAlt2 className='mr-2 inline-block font-thin' />
             Search Game...
           </DialogTrigger>
-          <DialogContent
-            customClose={true}
-            className='bg-gray-0 max-w-2xl overflow-y-auto rounded-t-lg px-0 pb-2 pt-1  md:border-gray-300 md:dark:border-gray-500'
-          >
+          <DialogContent className='bg-gray-0 max-w-2xl overflow-y-auto rounded-t-lg px-0 pb-2 pt-1  md:border-gray-300 md:dark:border-gray-500'>
             <SearchBar GamesList={GamesList} />
           </DialogContent>
         </Dialog>

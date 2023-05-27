@@ -195,7 +195,7 @@ export default function SearchBar({ GamesList }: Props) {
         />
         <button
           aria-label='Submit'
-          className='absolute right-4 top-[26px] hidden h-[20px] rounded-[4px] border border-gray-200 px-1 text-xs font-medium text-gray-400 transition hover:bg-gray-800 hover:text-white md:block'
+          className='absolute right-10 top-[26px] hidden h-[20px] rounded-[4px] border border-gray-200 px-1 text-xs font-medium text-gray-400 transition hover:bg-gray-800 hover:text-white md:block'
           tabIndex={-1}
           type='button'
           onClick={handleSubmitButton}
