@@ -120,12 +120,7 @@ export default function SearchBar({ GamesList }: Props) {
               ? filteredGames.map((game) => (
                   <div
                     key={game.id}
-                    className={
-                      selectedGames.includes(game) ||
-                      games.some((g) => g.id === game.id)
-                        ? 'hidden'
-                        : 'cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-black/10'
-                    }
+                    className='cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-black/10'
                     role='option'
                     id=':rah:'
                     aria-selected='false'
@@ -216,12 +211,7 @@ export default function SearchBar({ GamesList }: Props) {
             ? filteredGames.map((game) => (
                 <div
                   key={game.id}
-                  className={
-                    selectedGames.includes(game) ||
-                    games.some((g) => g.id === game.id)
-                      ? 'hidden'
-                      : 'cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-black/10'
-                  }
+                  className='cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-black/10'
                   role='option'
                   id=':rah:'
                   aria-selected='false'
