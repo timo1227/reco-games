@@ -3,16 +3,16 @@ import { Games } from '@/types/Games'
 import Header from '../components/Header'
 import SideBarLink from '../components/Link'
 
-interface SideBarProps {
+interface Props {
   gameID: string
   GamesList: Games[]
 }
 
-export default function SideBar({ gameID, GamesList }: SideBarProps) {
+export default function SideBar({ gameID, GamesList }: Props) {
   return (
     <aside className='sticky left-0 hidden h-full w-[25rem] bg-white dark:bg-black lg:block'>
       {/* @ts-expect-error server component */}
-      <Header gameID={gameID} GamesList={GamesList} />
+      <Header GamesList={GamesList} />
 
       <div className='mt-5'>
         <SideBarLink href='/Dashboard/Games/All' name='View Games' />

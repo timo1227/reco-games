@@ -1,18 +1,16 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 
 import { Games } from '@/types/Games'
 import useGameContext from '@/hooks/useGameContext'
 import { useToast } from '@/components/ui/use-toast'
 
-interface SearchBarProps {
+interface Props {
   GamesList: Games[]
-  gameID: string
 }
 
-export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
+export default function SearchBar({ GamesList }: Props) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedGames, setSelectedGames] = useState<Games[]>([])
   const [isMobile, setIsMobile] = useState(false)
@@ -52,10 +50,6 @@ export default function SearchBar({ GamesList, gameID }: SearchBarProps) {
       variant: 'destructive',
     })
   }
-
-  useEffect(() => {
-    console.log('Selected Games: ', selectedGames)
-  }, [selectedGames])
 
   if (isMobile) {
     return (

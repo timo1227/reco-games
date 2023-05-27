@@ -5,15 +5,11 @@ import { getCurrentUser } from '@/lib/session'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import SearchBar from '@/components/Bars/components/SearchBar/SearchBar'
 
-interface GameCardHeaderProps {
-  gameID: string
+interface Props {
   GamesList: Games[]
 }
 
-export default async function Header({
-  gameID,
-  GamesList,
-}: GameCardHeaderProps) {
+export default async function Header({ GamesList }: Props) {
   const user = await getCurrentUser()
 
   return (
@@ -28,7 +24,7 @@ export default async function Header({
             customClose={true}
             className='bg-gray-0 max-w-2xl overflow-y-auto rounded-t-lg px-0 pb-2 pt-1  md:border-gray-300 md:dark:border-gray-500'
           >
-            <SearchBar GamesList={GamesList} gameID={gameID} />
+            <SearchBar GamesList={GamesList} />
           </DialogContent>
         </Dialog>
       </div>
