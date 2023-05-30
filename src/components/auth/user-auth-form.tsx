@@ -16,11 +16,12 @@ export default function UserAuthForm() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { push } = useRouter()
+  const router = useRouter()
   const { toast } = useToast()
 
   const redirectToDash = () => {
-    push('/Dashboard/Games/All/1')
+    router.refresh()
+    router.push('/Dashboard/Games/All/1')
   }
 
   const loginUser = async (toastMsg: string) => {
@@ -29,6 +30,7 @@ export default function UserAuthForm() {
         redirect: false,
         email: email,
         password: password,
+        callbackUrl: `/`,
       })
       if (res.error) {
         setLoading(false)
