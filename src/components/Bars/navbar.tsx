@@ -4,22 +4,20 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Dialog } from '@headlessui/react'
-import { MoonIcon, SunIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { LogOut, Moon, SunMediumIcon } from 'lucide-react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { useTheme } from 'next-themes'
-import { IoPersonSharp } from 'react-icons/io5'
 
 const NAVIGATION = [
   { name: 'Home', href: '/' },
-  { name: 'Games', href: '/Dashboard/Games/' },
+  { name: 'Games', href: '/Dashboard/Games/All/1' },
   { name: 'Features', href: '#Features' },
   { name: 'About', href: '#About' },
 ]
 
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false)
   const { systemTheme, theme, setTheme } = useTheme()
   const { data: session } = useSession()
   const [mounted, setMounted] = useState(false)
@@ -35,16 +33,16 @@ export default function Nav() {
 
     if (currentTheme === 'dark') {
       return (
-        <SunIcon
-          className='mr-3 h-7 w-7 text-white '
+        <SunMediumIcon
+          className='mr-5 text-white '
           role='button'
           onClick={() => setTheme('light')}
         />
       )
     } else {
       return (
-        <MoonIcon
-          className='mr-3 h-7 w-7 text-gray-900 '
+        <Moon
+          className='mr-5 text-gray-900 '
           role='button'
           onClick={() => setTheme('dark')}
         />
@@ -67,7 +65,7 @@ export default function Nav() {
             <Link
               href='/Login'
               className='text-sm font-semibold leading-6 text-gray-900 dark:text-white'
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: '/' })}
             >
               Log out
             </Link>
@@ -76,43 +74,14 @@ export default function Nav() {
       }
       return (
         <div className='relative inline-block text-left'>
-          <div>
-            <button
-              type='button'
-              className='flex items-center text-sm font-medium text-black hover:text-gray-700 hover:underline focus:outline-none dark:text-white'
-              id='options-menu'
-              aria-expanded='true'
-              aria-haspopup='true'
-              onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-            >
-              <span className='sr-only'>Open user menu</span>
-              <IoPersonSharp className='h-6 w-6' aria-hidden='true' />
-            </button>
-            <div
-              className={`${
-                profileMenuOpen ? 'block' : 'hidden'
-              } absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-700`}
-              role='menu'
-              aria-orientation='vertical'
-              aria-labelledby='options-menu'
-            >
-              {/* <Link
-                href="/Profile"
-                className="block px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 "
-                role="menuitem"
-              >
-                Your Profile
-              </Link> */}
-              <Link
-                href='/Login'
-                className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600'
-                role='menuitem'
-                onClick={() => signOut()}
-              >
-                Log out
-              </Link>
-            </div>
-          </div>
+          <Link
+            href='/Login'
+            className='text-sm font-semibold leading-6 text-gray-900 dark:text-white'
+            role='menuitem'
+            onClick={() => signOut({ callbackUrl: '/' })}
+          >
+            Log out <LogOut className='ml-1 inline-block' size={18} />
+          </Link>
         </div>
       )
     } else {
@@ -177,11 +146,7 @@ export default function Nav() {
           {NAVIGATION.map((item) => (
             <Link
               key={item.name}
-              href={
-                item.name === 'Games'
-                  ? `${item.href}/${session?.user.games}`
-                  : `${item.href}`
-              }
+              href={item.href}
               className='text-sm font-semibold leading-6 text-gray-900 dark:text-white'
             >
               {item.name}
@@ -228,11 +193,7 @@ export default function Nav() {
                 {NAVIGATION.map((item) => (
                   <Link
                     key={item.name}
-                    href={
-                      item.name === 'Games'
-                        ? `${item.href}/${session?.user.games}`
-                        : `${item.href}`
-                    }
+                    href={item.href}
                     className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-700'
                   >
                     {item.name}

@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { signIn } from 'next-auth/react'
 
+import { useToast } from '../ui/use-toast'
+
 export default function UserAuthForm() {
   const [register, setRegister] = useState(false)
   const [username, setUsername] = useState('')
@@ -15,24 +17,29 @@ export default function UserAuthForm() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { push } = useRouter()
+  const { toast } = useToast()
 
-  const redirectToHome = () => {
-    push('/')
+  const redirectToDash = () => {
+    push('/Dashboard/Games/All/1')
   }
 
-  const loginUser = async () => {
+  const loginUser = async (toastMsg: string) => {
     try {
       const res: any = await signIn('credentials', {
         redirect: false,
         email: email,
         password: password,
-        callbackUrl: `/Dashboard`,
+        callbackUrl: `/Dashboard/Games/All/1`,
       })
       if (res.error) {
         setLoading(false)
         setError(res.error)
       } else {
-        redirectToHome()
+        redirectToDash()
+        toast({
+          title: toastMsg,
+          description: 'You have successfully logged in.',
+        })
       }
     } catch (err: any) {
       setLoading(false)
@@ -52,7 +59,7 @@ export default function UserAuthForm() {
         setLoading(false)
         setError(errorMSG)
       } else {
-        loginUser()
+        loginUser('Welcome to RecoGame!')
       }
     } catch (err: any) {
       setError(err.message)
@@ -82,7 +89,7 @@ export default function UserAuthForm() {
     if (register) {
       registerUser()
     } else {
-      loginUser()
+      loginUser('Welcome back!')
     }
   }
 

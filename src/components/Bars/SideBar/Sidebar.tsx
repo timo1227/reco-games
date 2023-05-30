@@ -1,26 +1,29 @@
 import { Games } from '@/types/Games'
 
-import Header from './components/Header'
-import SideBarLink from './components/Link'
+import Header from '../components/Header'
+import SideBarLink from '../components/Link'
 
-interface SideBarProps {
+interface Props {
   gameID: string
-  GamesList: Games[]
 }
 
-export default function SideBar({ gameID, GamesList }: SideBarProps) {
-  return (
-    <div className='sticky left-0 h-full w-[25rem] bg-white dark:bg-black'>
-      <Header gameID={gameID} GamesList={GamesList} />
+export default function SideBar({ gameID }: Props) {
+  const GamesList: Games[] = [] // TODO: Fetch games from API
 
-      <div className='mt-10'>
-        <SideBarLink href='/' name='Profile' />
-        <SideBarLink href={`/Dashboard/Games/${gameID}`} name='View Games' />
+  return (
+    <aside className='sticky left-0 hidden h-full w-[25rem] bg-white dark:bg-black lg:block'>
+      {/* @ts-expect-error server component */}
+      <Header GamesList={GamesList} />
+
+      <div className='mt-5'>
+        <SideBarLink href='/Dashboard/Games/All' name='View Games' />
+        <SideBarLink href={`/Dashboard/Games/${gameID}`} name='My Games' />
         <SideBarLink
           href={`/Dashboard/Suggestions/${gameID}`}
           name='Suggestions'
         />
+        <SideBarLink href='/' name='Profile' />
       </div>
-    </div>
+    </aside>
   )
 }
