@@ -29,7 +29,6 @@ export default function UserAuthForm() {
         redirect: false,
         email: email,
         password: password,
-        callbackUrl: `/Dashboard/Games/All/1`,
       })
       if (res.error) {
         setLoading(false)
