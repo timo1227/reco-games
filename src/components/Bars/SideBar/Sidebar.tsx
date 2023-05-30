@@ -5,10 +5,11 @@ import SideBarLink from '../components/Link'
 
 interface Props {
   gameID: string
-  GamesList: Games[]
 }
 
-export default function SideBar({ gameID, GamesList }: Props) {
+export default function SideBar({ gameID }: Props) {
+  const GamesList: Games[] = [] // TODO: Fetch games from API
+
   return (
     <aside className='sticky left-0 hidden h-full w-[25rem] bg-white dark:bg-black lg:block'>
       {/* @ts-expect-error server component */}
