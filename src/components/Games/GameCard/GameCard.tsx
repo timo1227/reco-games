@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import gameLibService from '@/class/GameLibService'
 import { Minus, Plus } from 'lucide-react'
 
 import { Games } from '@/types/Games'
@@ -46,10 +47,12 @@ export const GameCard = ({ game }: Props) => {
   }
 
   const onAddToLibrary = () => {
+    gameLibService.addGame(userGames, game)
     setGames((prev) => [...prev, game])
   }
 
   const onRemoveFromLibrary = () => {
+    gameLibService.deleteGame(userGames, game)
     setGames((prev) => prev.filter((g) => g.id !== game.id))
   }
 
