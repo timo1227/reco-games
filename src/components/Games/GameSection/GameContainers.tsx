@@ -22,7 +22,7 @@ export const GameContainer = ({ children, className }: Props) => {
   return (
     <main
       className={cn(
-        'h-full w-full overflow-y-scroll px-5 scrollbar-hide',
+        'scrollbar-hide h-full w-full overflow-y-scroll px-5',
         className
       )}
     >

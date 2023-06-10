@@ -157,7 +157,7 @@ export default function UserAuthForm() {
             <div className='relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700'>
               <strong className='font-bold'>Error!</strong>
               <span className='block sm:inline'> {error}</span>
-              <span className='absolute bottom-0 right-0 top-0 px-4 py-3'>
+              <span className='absolute inset-y-0 right-0 px-4 py-3'>
                 <svg
                   className='h-6 w-6 fill-current text-red-500'
                   role='button'

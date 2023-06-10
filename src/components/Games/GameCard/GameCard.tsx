@@ -105,7 +105,7 @@ export const GameCard = ({ game }: Props) => {
       </CardContent>
       <CardFooter
         className={cn(
-          !isHovered ? 'hidden' : 'block animate-in',
+          !isHovered ? 'hidden' : 'animate-in block',
           'absolute bottom-1 right-1 max-w-fit p-0'
         )}
       >

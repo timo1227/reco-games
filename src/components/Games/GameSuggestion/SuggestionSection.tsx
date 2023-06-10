@@ -9,7 +9,7 @@ export default function SuggestionSection({ gameID }: { gameID: string }) {
   const [isLoading, setIsLoading] = useState(false)
 
   return (
-    <div className='dashboard-inner h-full w-full overflow-y-scroll px-5 scrollbar-hide'>
+    <div className='dashboard-inner scrollbar-hide h-full w-full overflow-y-scroll px-5'>
       {/* Top right of the container put Suggestion Button */}
       <div className='flex justify-end'>
         <SuggestionsButton

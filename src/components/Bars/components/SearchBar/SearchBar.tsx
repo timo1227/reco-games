@@ -81,7 +81,7 @@ export default function SearchBar({ GamesList }: Props) {
             Search Command Menu
           </label>
           <input
-            className='md:border-t-none w-full rounded-t-lg border-b border-gray-300 bg-transparent px-4 py-4 outline-none dark:border-t dark:border-gray-600 dark:bg-black/20'
+            className='md:border-t-none w-full rounded-t-lg border-b border-gray-300 bg-transparent p-4 outline-none dark:border-t dark:border-gray-600 dark:bg-black/20'
             placeholder='Search Games'
             cmdk-input=''
             autoComplete='off'
@@ -172,7 +172,7 @@ export default function SearchBar({ GamesList }: Props) {
           Search Command Menu
         </label>
         <input
-          className='md:border-t-none w-full rounded-t-lg border-b border-gray-300 bg-transparent px-4 py-4 outline-none dark:border-t dark:border-gray-600 dark:bg-black/20'
+          className='md:border-t-none w-full rounded-t-lg border-b border-gray-300 bg-transparent p-4 outline-none dark:border-t dark:border-gray-600 dark:bg-black/20'
           placeholder='Search Games'
           cmdk-input=''
           autoComplete='off'

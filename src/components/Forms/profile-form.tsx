@@ -2,10 +2,9 @@
 
 import Link from 'next/link'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useFieldArray, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -15,7 +14,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/use-toast'
 import {
   Form,
@@ -67,11 +65,6 @@ export function ProfileForm() {
     resolver: zodResolver(profileFormSchema),
     defaultValues,
     mode: 'onChange',
-  })
-
-  const { fields, append } = useFieldArray({
-    name: 'urls',
-    control: form.control,
   })
 
   function onSubmit(data: ProfileFormValues) {
@@ -131,59 +124,6 @@ export function ProfileForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name='bio'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Bio</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder='Tell us a little bit about yourself'
-                  className='resize-none'
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                You can <span>@mention</span> other users and organizations to
-                link to them.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div>
-          {fields.map((field, index) => (
-            <FormField
-              control={form.control}
-              key={field.id}
-              name={`urls.${index}.value`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className={cn(index !== 0 && 'sr-only')}>
-                    URLs
-                  </FormLabel>
-                  <FormDescription className={cn(index !== 0 && 'sr-only')}>
-                    Add links to your website, blog, or social media profiles.
-                  </FormDescription>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
-          <Button
-            type='button'
-            variant='link'
-            size='sm'
-            className='mt-1'
-            onClick={() => append({ value: '' })}
-          >
-            Add URL
-          </Button>
-        </div>
         <Button type='submit'>Update profile</Button>
       </form>
     </Form>
