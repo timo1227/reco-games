@@ -22,7 +22,7 @@ export default function SideBar({ gameID }: Props) {
           href={`/Dashboard/Suggestions/${gameID}`}
           name='Suggestions'
         />
-        <SideBarLink href='/' name='Profile' />
+        <SideBarLink href='/Dashboard/Profile' name='Profile' />
       </div>
     </aside>
   )
