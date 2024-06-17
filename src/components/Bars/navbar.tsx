@@ -11,9 +11,9 @@ import { useTheme } from 'next-themes'
 
 const NAVIGATION = [
   { name: 'Home', href: '/' },
-  { name: 'Games', href: '/Dashboard/Games/All/1' },
-  { name: 'Features', href: '#Features' },
-  { name: 'About', href: '#About' },
+  { name: 'Games', href: '/dashboard/games/1' },
+  { name: 'Features', href: '/#features' },
+  { name: 'About', href: '/#about' },
 ]
 
 export default function Nav() {
@@ -51,6 +51,7 @@ export default function Nav() {
   }
 
   function SessionLink() {
+    console.log(session)
     if (session) {
       if (mobileMenuOpen) {
         return (

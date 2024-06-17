@@ -1,7 +1,6 @@
-import { notFound } from 'next/navigation'
 import GamesProvider from '@/providers/GamesProvider'
 
-import { getCurrentUser } from '@/lib/session'
+import getSession from '@/lib/session'
 import SideBar from '@/components/Bars/SideBar/Sidebar'
 
 interface LayoutProps {
@@ -9,13 +8,16 @@ interface LayoutProps {
 }
 
 export default async function Layout({ children }: LayoutProps) {
-  const user = await getCurrentUser()
-  if (!user) return notFound()
+  const session = await getSession()
+
+  if (!session) {
+    throw new Error('Not authenticated')
+  }
 
   return (
-    <GamesProvider gamesID={user.games}>
+    <GamesProvider gamesID={session.user.games}>
       <main className='mx-auto flex h-full max-w-7xl flex-row pt-24'>
-        <SideBar gameID={user.games} />
+        <SideBar gameID={session.user.games} />
         {children}
       </main>
     </GamesProvider>

@@ -1,7 +1,7 @@
 import { BiSearchAlt2 } from 'react-icons/bi'
 
 import { Games } from '@/types/Games'
-import { getCurrentUser } from '@/lib/session'
+import getSession from '@/lib/session'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import SearchBar from '@/components/Bars/components/SearchBar/SearchBar'
 
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default async function Header({ GamesList }: Props) {
-  const user = await getCurrentUser()
+  const session = await getSession()
 
   return (
     <>
@@ -26,7 +26,7 @@ export default async function Header({ GamesList }: Props) {
         </Dialog>
       </div>
       <h3 className='mt-5 px-3 text-xl font-bold'>
-        {user?.name}&apos;s Dashboard
+        {session?.user.name}&apos;s Dashboard
       </h3>
     </>
   )

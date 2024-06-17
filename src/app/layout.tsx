@@ -3,14 +3,14 @@ import { Inter } from 'next/font/google'
 import Provider from '@/providers/Provider'
 
 import { cn } from '@/lib/utils'
-import { Toaster } from '@/components/ui/Toaster'
+import { Toaster } from '@/components/ui/toaster'
 import Nav from '@/components/Bars/navbar'
 
 const fontInter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Reco Game',
-  description: 'Get Game Recommendations ',
+  description: 'Game Recommendations ',
   keywords: 'game, recommendations, ',
   authors: [
     {

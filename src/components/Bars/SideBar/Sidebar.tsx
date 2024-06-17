@@ -16,10 +16,10 @@ export default function SideBar({ gameID }: Props) {
       <Header GamesList={GamesList} />
 
       <div className='mt-5'>
-        <SideBarLink href='/Dashboard/Games/All/1' name='View Games' />
-        <SideBarLink href={`/Dashboard/Games/${gameID}`} name='My Games' />
+        <SideBarLink href='/dashboard/games/1' name='View Games' />
+        <SideBarLink href={`/dashboard/games/${gameID}`} name='My Games' />
         <SideBarLink
-          href={`/Dashboard/Suggestions/${gameID}`}
+          href={`/dashboard/suggestions/${gameID}`}
           name='Suggestions'
         />
         <SideBarLink href='/' name='Profile' />
