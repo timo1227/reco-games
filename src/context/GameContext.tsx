@@ -1,50 +1,50 @@
 import { createContext, useEffect, useState } from 'react'
-import axios from 'axios'
+import { getGames } from '@/class/GameLibService'
+import { useSession } from 'next-auth/react'
 
 import { Games } from '@/types/Games'
 
 interface GameContextType {
-  games: Games[]
-  setGames: React.Dispatch<React.SetStateAction<any>>
+  gameList: Games[]
+  setGameList: React.Dispatch<React.SetStateAction<Games[]>>
   loading: boolean
-}
-
-interface UserGameCollection {
-  _id: string
-  games: Games[]
 }
 
 export const GameContext = createContext<GameContextType>(null!)
 
 export default function GameProvider({
-  gamesID,
   children,
 }: {
   children: React.ReactNode
-  gamesID: string
 }) {
-  const [games, setGames] = useState<GameContextType['games']>([])
-  const [loading, setLoading] = useState(false)
+  const [gameList, setGameList] = useState<GameContextType['gameList']>([])
+  const [loading, setLoading] = useState(true)
+  const { data: session, status } = useSession()
+
+  if (!session && status !== 'loading') {
+    throw new Error('Session not found')
+  }
+
+  const gamesId = session?.user.gameId
 
   useEffect(() => {
-    setLoading(true)
-    axios
-      .get<UserGameCollection>(`/api/games/${gamesID}`)
-      .then((res) => {
-        setGames(res.data.games)
+    getGames()
+      .then((games) => {
+        setGameList(games)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+      .finally(() => {
         setLoading(false)
       })
-      .catch((err) => {
-        console.log(err)
-        setLoading(false)
-      })
-  }, [gamesID])
+  }, [gamesId])
 
   return (
     <GameContext.Provider
       value={{
-        games,
-        setGames,
+        gameList,
+        setGameList,
         loading,
       }}
     >

@@ -8,16 +8,10 @@ interface LayoutProps {
 }
 
 export default async function Layout({ children }: LayoutProps) {
-  const session = await getSession()
-
-  if (!session) {
-    throw new Error('Not authenticated')
-  }
-
   return (
-    <GamesProvider gamesID={session.user.games}>
-      <main className='mx-auto flex h-full max-w-7xl flex-row pt-24'>
-        <SideBar gameID={session.user.games} />
+    <GamesProvider>
+      <main className='mx-auto flex h-full max-w-7xl flex-row pt-24 pb-4'>
+        <SideBar />
         {children}
       </main>
     </GamesProvider>

@@ -12,10 +12,14 @@ export interface Platforms {
   name: string
 }
 
+export interface ParentPlatforms {
+  platform: Platforms
+}
+
 export interface Games {
-  id: number
+  id: string
   slug: string
   name: string
   background_image: string
-  parent_platforms: { platform: Platforms }[]
+  parent_platforms: ParentPlatforms[]
 }

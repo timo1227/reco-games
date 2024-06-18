@@ -37,11 +37,14 @@ model Account {
 
 model Game {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
-  slug             String @unique
+  userId           String @db.ObjectId
+  slug             String
   name             String
   background_image String
 
   parent_platforms ParentPlatform[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ParentPlatform {
@@ -50,13 +53,14 @@ model ParentPlatform {
   platformId String @db.ObjectId
 
   game     Game     @relation(fields: [gameId], references: [id])
-  platform Platform @relation(fields: [platformId], references: [id])
+  platform Platform @relation(fields: [platformId], references: [platId])
 }
 
 model Platform {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  slug String @unique
-  name String
+  platId String @id @default(auto()) @map("_id") @db.ObjectId
+  id     Int    @unique
+  slug   String @unique
+  name   String
 
   parent_platforms ParentPlatform[]
 }
@@ -81,6 +85,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  games         Game[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

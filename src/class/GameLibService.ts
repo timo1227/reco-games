@@ -1,57 +1,65 @@
-import { z } from 'zod'
+'use server'
 
 import { Games } from '@/types/Games'
+import { db } from '@/lib/db'
+import getSession from '@/lib/session'
 
-export const GameLibServiceSchema = z.object({
-  id: z.string(),
-  slug: z.string(),
-  name: z.string(),
-  background_image: z.string(),
-  parent_platforms: z.array(
-    z.object({
-      platform: z.object({
-        id: z.string(),
-        slug: z.string(),
-        name: z.string(),
-      }),
-    })
-  ),
-})
+export const getGames = async () => {
+  const session = await getSession()
 
-class GameLibService {
-  getGames() {
-    const controller = new AbortController()
-    const req = fetch('/api/games', {
-      signal: controller.signal,
-    })
-    return { req, cancel: () => controller.abort() }
+  if (!session) {
+    return []
   }
 
-  addGame(games: Games[], game: Games) {
-    const newGamesList = [...games, game]
+  const games = await db.game.findMany({
+    where: {
+      userId: session.user.id,
+    },
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+      background_image: true,
+      parent_platforms: {
+        select: {
+          platform: {
+            select: {
+              id: true,
+              slug: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
+  })
 
-    const controller = new AbortController()
-    const req = fetch('/api/games', {
-      method: 'PATCH',
-      body: JSON.stringify({ games: newGamesList }),
-      signal: controller.signal,
-    })
-    return { req, cancel: () => controller.abort() }
-  }
-
-  deleteGame(games: Games[], game: Games) {
-    const newGamesList = games.filter((g) => g.slug !== game.slug)
-
-    const controller = new AbortController()
-    const req = fetch('/api/games', {
-      method: 'PATCH',
-      body: JSON.stringify({ games: newGamesList }),
-      signal: controller.signal,
-    })
-    return { req, cancel: () => controller.abort() }
-  }
+  return games || ([] satisfies Games[])
 }
 
-const gameLibService = new GameLibService()
+export const addGame = async (game: Games) => {
+  const session = await getSession()
 
-export default gameLibService
+  if (!session) {
+    return
+  }
+
+  // Find and update the user's games list
+  await db.game.create({
+    data: {
+      userId: session.user.id,
+      slug: game.slug,
+      name: game.name,
+      background_image: game.background_image,
+      parent_platforms: {
+        create: game.parent_platforms.map((p) => ({
+          platform: {
+            connect: {
+              id: p.platform.id,
+            },
+          },
+        })),
+      },
+    },
+  })
+}

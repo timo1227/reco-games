@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import gameLibService from '@/class/GameLibService'
+import { addGame } from '@/class/GameLibService'
 import { Minus, Plus } from 'lucide-react'
 
 import { Games } from '@/types/Games'
@@ -33,10 +33,10 @@ interface Props {
 
 export const GameCard = ({ game }: Props) => {
   const [isHovered, setIsHovered] = useState(false)
-  const { games: userGames, setGames } = useGameContext()
+  const { gameList: userGames, setGameList } = useGameContext()
   const { toast } = useToast()
 
-  const isInLibrary = userGames.find((g) => g.id === game.id)
+  const isInLibrary = userGames.find((g) => g.slug === game.slug)
 
   const onCardClick = () => {
     toast({
@@ -47,13 +47,13 @@ export const GameCard = ({ game }: Props) => {
   }
 
   const onAddToLibrary = () => {
-    gameLibService.addGame(userGames, game)
-    setGames((prev) => [...prev, game])
+    addGame(game)
+    setGameList((prev) => [...prev, game])
   }
 
   const onRemoveFromLibrary = () => {
-    gameLibService.deleteGame(userGames, game)
-    setGames((prev) => prev.filter((g) => g.id !== game.id))
+    // gameLibService.deleteGame(userGames, game)
+    setGameList((prev) => prev.filter((g) => g.slug !== game.slug))
   }
 
   const onAddRemoveFromLibrary = () => {
