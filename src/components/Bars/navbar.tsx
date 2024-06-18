@@ -51,7 +51,6 @@ export default function Nav() {
   }
 
   function SessionLink() {
-    console.log(session)
     if (session) {
       if (mobileMenuOpen) {
         return (

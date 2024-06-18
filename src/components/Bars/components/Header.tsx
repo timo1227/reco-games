@@ -9,7 +9,7 @@ interface Props {
   GamesList: Games[]
 }
 
-export default async function Header({ GamesList }: Props) {
+const Header = async ({ GamesList }: Props) => {
   const session = await getSession()
 
   return (
@@ -31,3 +31,5 @@ export default async function Header({ GamesList }: Props) {
     </>
   )
 }
+
+export default Header
