@@ -1,13 +1,11 @@
-import { User } from 'next-auth'
-
-// type UserId = string
-type GameId = ObjectId
+import { type DefaultSession } from 'next-auth'
 
 declare module 'next-auth' {
-  interface Session {
-    user: User & {
-      id: UserId
-      games: GameId
+  interface Session extends DefaultSession {
+    user: DefaultSession['user'] & {
+      id: string
+      name: string
+      email: string
     }
   }
 }
