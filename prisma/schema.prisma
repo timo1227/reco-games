@@ -52,7 +52,7 @@ model ParentPlatform {
   gameId     String @db.ObjectId
   platformId String @db.ObjectId
 
-  game     Game     @relation(fields: [gameId], references: [id])
+  game     Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
   platform Platform @relation(fields: [platformId], references: [platId])
 }
 
