@@ -16,6 +16,7 @@ type PlatfromSlug =
   | 'nintendo'
   | 'mac'
   | 'web'
+
 export interface Platforms {
   id: number
   slug: PlatfromSlug
