@@ -44,7 +44,7 @@ export const addGame = async (game: Games) => {
     return
   }
 
-  // Find and update the user's games list
+  // Add user's game to the database
   await db.game.create({
     data: {
       userId: session.user.id,
