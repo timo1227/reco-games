@@ -6,9 +6,19 @@ export interface SuggestionGames {
   }[]
 }
 
+type PlatfromSlug =
+  | 'pc'
+  | 'playstation'
+  | 'xbox'
+  | 'ios'
+  | 'android'
+  | 'linux'
+  | 'nintendo'
+  | 'mac'
+  | 'web'
 export interface Platforms {
   id: number
-  slug: string
+  slug: PlatfromSlug
   name: string
 }
 
