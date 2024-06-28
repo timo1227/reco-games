@@ -34,7 +34,7 @@ export const getGames = async () => {
     },
   })
 
-  return games || ([] satisfies Games[])
+  return (games as Games[]) || ([] satisfies Games[])
 }
 
 export const addGame = async (game: Games) => {

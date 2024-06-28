@@ -135,7 +135,7 @@ export default function Nav() {
           >
             <span className='sr-only'>Open main menu</span>
             <Bars3Icon
-              className={`h-6 w-6 dark:text-white ${
+              className={`size-6 dark:text-white ${
                 mobileMenuOpen ? 'hidden' : ''
               }`}
               aria-hidden='true'
@@ -165,7 +165,7 @@ export default function Nav() {
         onClose={setMobileMenuOpen}
       >
         <div className='fixed inset-0 z-50' />
-        <Dialog.Panel className='fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 dark:bg-[#181818] sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:sm:ring-gray-400/10'>
+        <Dialog.Panel className='fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 dark:bg-[#181818] sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:sm:ring-gray-400/10'>
           <div className='flex items-center justify-between'>
             <Link href='#' className=''>
               <span className='sr-only'>Logo</span>
@@ -184,7 +184,7 @@ export default function Nav() {
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className='sr-only'>Close menu</span>
-              <XMarkIcon className='h-6 w-6' aria-hidden='true' />
+              <XMarkIcon className='size-6' aria-hidden='true' />
             </button>
           </div>
           <div className='mt-6 flow-root'>

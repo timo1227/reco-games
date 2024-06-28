@@ -13,7 +13,7 @@ export default function SideBarLink({ href, name }: LinkProps) {
       className='flex w-full items-center justify-between px-4 py-2 text-left dark:text-gray-500 dark:hover:text-white '
     >
       {name}
-      <ChevronRightIcon className='h-5 w-5' />
+      <ChevronRightIcon className='size-5' />
     </Link>
   )
 }

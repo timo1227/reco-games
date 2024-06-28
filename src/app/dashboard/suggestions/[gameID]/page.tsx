@@ -8,7 +8,7 @@ export default function Page({
   params: { gameID: string }
 }) {
   return (
-    <div className='h-full w-full'>
+    <div className='size-full'>
       <SuggestionSection gameID={gameID} />
     </div>
   )

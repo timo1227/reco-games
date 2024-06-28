@@ -1,6 +1,5 @@
 import GamesProvider from '@/providers/GamesProvider'
 
-import getSession from '@/lib/session'
 import SideBar from '@/components/Bars/SideBar/Sidebar'
 
 interface LayoutProps {
@@ -10,7 +9,7 @@ interface LayoutProps {
 export default async function Layout({ children }: LayoutProps) {
   return (
     <GamesProvider>
-      <main className='mx-auto flex h-full max-w-7xl flex-row pt-24 pb-4'>
+      <main className='mx-auto flex h-full max-w-7xl flex-row pb-4 pt-24'>
         <SideBar />
         {children}
       </main>

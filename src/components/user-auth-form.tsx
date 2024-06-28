@@ -143,13 +143,13 @@ export function UserAuthForm({ className, toRegister }: UserAuthFormProps) {
               >
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                   <LockClosedIcon
-                    className='h-5 w-5 text-blue-500 group-hover:text-blue-400'
+                    className='size-5 text-blue-500 group-hover:text-blue-400'
                     aria-hidden='true'
                   />
                 </span>
                 {isLoading ? (
                   <svg
-                    className='-ml-1 mr-3 h-5 w-5 animate-spin text-white'
+                    className='-ml-1 mr-3 size-5 animate-spin text-white'
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
                     viewBox='0 0 24 24'

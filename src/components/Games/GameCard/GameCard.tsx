@@ -87,7 +87,7 @@ export const GameCard = ({ game }: Props) => {
           alt={game.name}
           width={600}
           height={400}
-          className='h-full w-full object-cover'
+          className='size-full object-cover'
         />
       </CardHeader>
       <CardContent className='absolute'>
@@ -119,12 +119,12 @@ export const GameCard = ({ game }: Props) => {
               >
                 {isInLibrary ? (
                   <>
-                    <Minus className='h-4 w-4' />
+                    <Minus className='size-4' />
                     <span className='sr-only'>Minus</span>
                   </>
                 ) : (
                   <>
-                    <Plus className='h-4 w-4' />
+                    <Plus className='size-4' />
                     <span className='sr-only'>Add</span>
                   </>
                 )}
