@@ -1,21 +1,11 @@
-import { User } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
-
-type UserId = string
-type GameId = ObjectId
-
-declare module 'next-auth/jwt' {
-  interface JWT {
-    id: UserId
-    games: GameId
-  }
-}
+import { type DefaultSession } from 'next-auth'
 
 declare module 'next-auth' {
-  interface Session {
-    user: User & {
-      id: UserId
-      games: GameId
+  interface Session extends DefaultSession {
+    user: DefaultSession['user'] & {
+      id: string
+      name: string
+      email: string
     }
   }
 }

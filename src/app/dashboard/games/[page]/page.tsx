@@ -44,8 +44,7 @@ const getData = async (page: number) => {
 
   return data
 }
-
-export default async function Page({ params }: { params: { page: number } }) {
+async function Page({ params }: { params: { page: number } }) {
   const page = params.page || 1
   const data = await getData(page)
   const games = data?.results || []
@@ -57,3 +56,5 @@ export default async function Page({ params }: { params: { page: number } }) {
     </GameContainer>
   )
 }
+
+export default Page
