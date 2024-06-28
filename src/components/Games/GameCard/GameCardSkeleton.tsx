@@ -14,7 +14,7 @@ export const GameCardSkeleton = () => {
       className={cn('h-[375px] w-[250px] md:w-[300px]', 'overflow-hidden px-0')}
     >
       <CardHeader className={cn('mb-5 h-[65%] p-0')}>
-        <Skeleton className='h-full w-full rounded-none' />
+        <Skeleton className='size-full rounded-none' />
       </CardHeader>
       <CardContent>
         <CardTitle>
@@ -22,11 +22,11 @@ export const GameCardSkeleton = () => {
         </CardTitle>
       </CardContent>
       <CardFooter className='flex gap-2'>
-        <Skeleton className='h-5 w-5' />
-        <Skeleton className='h-5 w-5' />
-        <Skeleton className='h-5 w-5' />
-        <Skeleton className='h-5 w-5' />
-        <Skeleton className='h-5 w-5' />
+        <Skeleton className='size-5' />
+        <Skeleton className='size-5' />
+        <Skeleton className='size-5' />
+        <Skeleton className='size-5' />
+        <Skeleton className='size-5' />
       </CardFooter>
     </Card>
   )

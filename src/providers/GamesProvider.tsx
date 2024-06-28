@@ -1,7 +1,6 @@
 'use client'
 
 import GameProvider from '@/context/GameContext'
-import { useSession } from 'next-auth/react'
 
 interface Props {
   children: React.ReactNode

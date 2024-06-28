@@ -17,7 +17,7 @@ export default function SuggestionsButton({
   isLoading,
   setLoading,
 }: Props) {
-  const { games } = useGameContext()
+  const { gameList: games } = useGameContext()
 
   const handleSuggestionsClick = () => {
     setLoading(true)
@@ -30,7 +30,7 @@ export default function SuggestionsButton({
       })
       .catch((err) => {
         if (err instanceof CanceledError) {
-          console.log('Request canceled', err.message)
+          console.error('Request canceled', err.message)
           setLoading(false)
         }
       })

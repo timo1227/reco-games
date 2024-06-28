@@ -38,7 +38,7 @@ const getData = async (page: number) => {
       return data
     })
     .catch((error) => {
-      console.log(error)
+      console.error(error)
       return null
     })
 
