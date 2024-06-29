@@ -207,7 +207,7 @@ export function UserAuthForm({ className, toRegister }: UserAuthFormProps) {
                 signIn('google')
               }}
               className={cn(
-                'max-w-96 rounded-sm border border-[#747775] bg-[#131314]',
+                'max-w-96 rounded-sm border border-[#747775] bg-[#131314] text-white',
                 'hover:border-[#747775] hover:bg-[#131314]/55',
                 'disabled:bg-[#13131461]'
               )}
@@ -218,7 +218,7 @@ export function UserAuthForm({ className, toRegister }: UserAuthFormProps) {
               ) : (
                 <Icons.google className='mr-2 size-5' />
               )}
-              {toRegister ? 'Register with Google' : 'Sign in with Google'}
+              Sign in with Google
             </Button>
           </div>
         </div>

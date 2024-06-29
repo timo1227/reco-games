@@ -1,42 +1,23 @@
-import SuggestionService from '@/class/SuggestionService'
-import { CanceledError } from 'axios'
-
-import { SuggestionGames } from '@/types/Games'
-import useGameContext from '@/hooks/useGameContext'
+import { SuggestionGames } from '@/types/Games';
+import useGameContext from '@/hooks/useGameContext';
+import { toast } from '@/components/ui/use-toast';
 
 interface Props {
-  gameID: string
-  isLoading: boolean
-  setLoading: (isLoading: boolean) => void
-  setSuggestions: (suggestions: SuggestionGames['games']) => void
+  gameID: string;
+  isLoading: boolean;
+  setLoading: (isLoading: boolean) => void;
+  setSuggestions: (suggestions: SuggestionGames['games']) => void;
 }
 
-export default function SuggestionsButton({
-  gameID,
-  setSuggestions,
-  isLoading,
-  setLoading,
-}: Props) {
-  const { gameList: games } = useGameContext()
+export default function SuggestionsButton({ gameID, setSuggestions, isLoading, setLoading }: Props) {
+  const { gameList: games } = useGameContext();
 
   const handleSuggestionsClick = () => {
-    setLoading(true)
-
-    const { req, cancel } = SuggestionService.getSuggestions(games)
-    req
-      .then((res) => {
-        setSuggestions(res.data.games)
-        setLoading(false)
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) {
-          console.error('Request canceled', err.message)
-          setLoading(false)
-        }
-      })
-
-    return () => cancel
-  }
+    return toast({
+      title: 'Coming Soon',
+      description: 'This feature is not available yet.',
+    });
+  };
 
   return (
     <div className='flex justify-center'>
@@ -47,5 +28,5 @@ export default function SuggestionsButton({
         {isLoading ? 'Loading...' : 'Get Suggestions'}
       </button>
     </div>
-  )
+  );
 }
